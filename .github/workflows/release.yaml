@@ -11,7 +11,6 @@ on:
 jobs:
     changelog:
         runs-on: ubuntu-latest
-
         steps:
             - uses: actions/checkout@v2
 
@@ -20,7 +19,7 @@ jobs:
               uses: TriPSs/conventional-changelog-action@v3.7.1
               with:
                   github-token: ${{ secrets.GITHUB_TOKEN }}
-                  version-file: './package.json,./package-lock.json'
+                  version-file: './package.json,./yarn.lock'
 
             - name: create release
               uses: actions/create-release@v1

@@ -5,6 +5,10 @@ on:
         branches: ['master']
         paths-ignore:
             - '**.md'
+    pull_request:
+        branches: ['master']
+        paths-ignore:
+            - '**.md'
     workflow_dispatch:
 
 jobs:
@@ -28,14 +32,12 @@ jobs:
               with:
                   node-version: '16.x'
             - name: install dependencies
-              if: steps.cache.outputs.cache-hit != true
+              if: ${{ steps.cache.outputs.cache-hit != true }}
               run: yarn install --frozen-lockfile
-            - name: ci
+            - name: static tests
               run: yarn lint-check
             - name: conflicts lint-prettier
               run: yarn run eslint-prettier-check
-            - name: static tests
-              run: yarn lint
             - name: build
               run: yarn build
             - name: Upload build
@@ -43,8 +45,30 @@ jobs:
               with:
                   name: build
                   path: './build'
-            # test and upload code coverage report
-            - name: deploy to netlify
+            - name: testing and generating a code-coverage report
+              run: yarn coverage:ci
+            - name: upload code coverage report to codecov
+              uses: codecov/codecov-action@v2
+              with:
+                  token: ${{ secrets.CODECOV_TOKEN }}
+                  files: coverage/
+                  fail_ci_if_error: true
+                  verbose: true
+            - name: zip assets
+              run: |
+                  zip -r build.zip ./build
+            - name: deploy to staging
+              id: staging
+              run: |
+                  curl -H "Content-Type: application/zip" \
+                  -H "Authorization: Bearer ${{ secrets.NETLIFY_AUTH_TOKEN }}" \
+                  -H "draft: true" \
+                  --data-binary "build.zip" \
+                  https://api.netlify.com/api/v1/sites/mysite.netlify.app/deploys
+              env:
+                  NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+            - name: deploy to production
+              if: ${{ steps.staging.outcome != 'failed' }}
               uses: nwtgck/actions-netlify@v1.2.3
               with:
                   publish-dir: './build'
