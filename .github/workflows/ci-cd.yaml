@@ -64,7 +64,7 @@ jobs:
                   -H "Authorization: Bearer ${{ secrets.NETLIFY_AUTH_TOKEN }}" \
                   -H "draft: true" \
                   --data-binary "build.zip" \
-                  https://api.netlify.com/api/v1/sites/mysite.netlify.app/deploys
+                  https://api.netlify.com/api/v1/sites/serverflow.netlify.app/deploys
               env:
                   NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
             - name: deploy to production

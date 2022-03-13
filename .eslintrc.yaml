@@ -11,7 +11,6 @@ parserOptions:
 extends:
     - prettier
     - 'react-app'
-    - 'react-app/jest'
     - 'eslint:recommended'
     - 'plugin:react/recommended'
     - 'plugin:json/recommended'
@@ -19,7 +18,7 @@ extends:
     - 'plugin:jest/recommended'
 settings:
     react:
-        version: latest
+        version: detect
 plugins:
     - prettier
     - react
