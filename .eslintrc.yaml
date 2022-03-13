@@ -10,6 +10,8 @@ parserOptions:
     sourceType: module
 extends:
     - prettier
+    - 'react-app'
+    - 'react-app/jest'
     - 'eslint:recommended'
     - 'plugin:react/recommended'
     - 'plugin:json/recommended'
