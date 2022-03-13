@@ -1,0 +1,6 @@
+**/*.d.ts
+build
+node_modules
+.netlify
+.gitignore
+**/*.yaml
