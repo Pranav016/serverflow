@@ -9,13 +9,13 @@ parserOptions:
     ecmaVersion: 12
     sourceType: module
 extends:
-    - prettier
     - 'react-app'
     - 'eslint:recommended'
     - 'plugin:react/recommended'
     - 'plugin:json/recommended'
     - 'plugin:@typescript-eslint/recommended'
     - 'plugin:jest/recommended'
+    - 'plugin:prettier/recommended'
 settings:
     react:
         version: detect
@@ -47,3 +47,13 @@ rules:
     dot-notation: 'off'
     no-tabs: 'off'
     react/prop-types: 'off'
+    # conflicting or may conflict with prettier-
+    '@typescript-eslint/no-extra-semi': 'off'
+    dot-location: 'off'
+    new-parens: 'off'
+    no-mixed-spaces-and-tabs: 'off'
+    no-whitespace-before-property: 'off'
+    rest-spread-spacing: 'off'
+    unicode-bom: 'off'
+    no-mixed-operators: 'off'
+    no-unexpected-multiline: 'off'

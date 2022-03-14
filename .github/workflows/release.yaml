@@ -3,30 +3,32 @@ on:
     push:
         branches:
             - master
-    pull_request:
-        branches:
-            - master
     workflow_dispatch:
 
 jobs:
-    changelog:
+    release:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v2
-
-            - name: conventional Changelog Action
-              id: changelog
-              uses: TriPSs/conventional-changelog-action@v3.7.1
+            - name: Get yarn cache directory path
+              id: yarn-cache-dir-path
+              run: echo "::set-output name=dir::$(yarn cache dir)"
+            - name: cache lookup
+              uses: actions/cache@v2
+              id: cache
               with:
-                  github-token: ${{ secrets.GITHUB_TOKEN }}
-                  version-file: './package.json,./yarn.lock'
-
-            - name: create release
-              uses: actions/create-release@v1
-              if: ${{ steps.changelog.outputs.skipped == 'false' }}
+                  path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+                  key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+                  restore-keys: |
+                      ${{ runner.os }}-yarn-
+            - name: setup node
+              uses: actions/setup-node@v2
+              with:
+                  node-version: '16.x'
+            - name: install dependencies
+              if: ${{ steps.cache.outputs.cache-hit != true }}
+              run: yarn install --frozen-lockfile
+            - name: release version
+              run: npx semantic-release
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-              with:
-                  tag_name: ${{ steps.changelog.outputs.tag }}
-                  release_name: ${{ steps.changelog.outputs.tag }}
-                  body: ${{ steps.changelog.outputs.clean_changelog }}
