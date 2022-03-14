@@ -16,7 +16,6 @@
 		"build": "react-scripts build",
 		"test": "jest",
 		"test:watch": "jest --watch",
-		"test:ci": "jest --ci",
 		"coverage:ci": "jest --ci --coverage --coverageDirectory='coverage'",
 		"eject": "react-scripts eject",
 		"eslint-prettier-check": "eslint-config-prettier ./src/App.js",
