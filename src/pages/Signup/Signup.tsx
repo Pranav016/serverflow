@@ -1,43 +1,47 @@
 import React, { useContext, useRef } from 'react';
-import { AppContext } from '../../context/AppContext';
 import { Button, Form } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
+import { AppContext } from '../../context/AppContext';
 import toast from 'react-hot-toast';
-import GoogleButton from 'react-google-button';
-import './Login.css';
+import '../Login/Login.css';
 
-const Login: React.FC = () => {
-	const { login, googleSignIn } = useContext(AppContext);
+const Signup = () => {
+	const { signup } = useContext(AppContext);
 	const navigate = useNavigate();
 	const emailRef = useRef<HTMLInputElement>(null);
 	const passwordRef = useRef<HTMLInputElement>(null);
-	const handleSubmit = async (e: React.FormEvent) => {
+	const confirmPasswordRef = useRef<HTMLInputElement>(null);
+	async function handleSubmit(e: React.FormEvent) {
 		e.preventDefault();
 		const email = emailRef?.current?.value;
 		const password = passwordRef?.current?.value;
+		const confirmPassword = confirmPasswordRef?.current?.value;
+
+		if (email === '' || email === undefined) {
+			toast.error('Please enter an Email!');
+			return;
+		}
+		if (password === '' || password === undefined) {
+			toast.error('Please enter your Password!');
+			return;
+		}
+		if (confirmPassword === '' || confirmPassword === undefined) {
+			toast.error('Please enter your Password!');
+			return;
+		}
+		if (password !== confirmPassword) {
+			toast.error('Passwords do not match! Try again');
+			return;
+		}
 		try {
-			if (email === '' || email === undefined) {
-				toast.error('Please enter an Email!');
-				return;
-			}
-			if (password === '' || password === undefined) {
-				toast.error('Please enter your Password!');
-				return;
-			}
-			await login(email, password);
+			console.log(email, password);
+
+			await signup(email, password);
 			navigate('/dashboard', { replace: true });
 		} catch (err) {
 			toast.error((err as Error).message);
 		}
-	};
-	const handleGoogleSignIn = async () => {
-		try {
-			await googleSignIn();
-			navigate('/dashboard', { replace: true });
-		} catch (err) {
-			toast.error((err as Error).message);
-		}
-	};
+	}
 	return (
 		<div className='authForm'>
 			<Form onSubmit={handleSubmit}>
@@ -52,7 +56,6 @@ const Login: React.FC = () => {
 						We&apos;ll never share your email with anyone else.
 					</Form.Text>
 				</Form.Group>
-
 				<Form.Group className='mb-3' controlId='formBasicPassword'>
 					<Form.Label>Password</Form.Label>
 					<Form.Control
@@ -61,17 +64,24 @@ const Login: React.FC = () => {
 						ref={passwordRef}
 					/>
 				</Form.Group>
+				<Form.Group
+					className='mb-3'
+					controlId='formBasicConfirmPassword'>
+					<Form.Label>Confirm Password</Form.Label>
+					<Form.Control
+						type='password'
+						placeholder='Confirm Password'
+						ref={confirmPasswordRef}
+					/>
+				</Form.Group>
 				<Button variant='primary' type='submit'>
 					Submit
 				</Button>
 			</Form>
-			<p>OR</p>
-			<GoogleButton onClick={handleGoogleSignIn} />
 			<hr />
-			<Link to='/forgot-password'>Forgot Password</Link>
-			<Link to='/signup'>New user?</Link>
+			<Link to='/login'>Already have an account?</Link>
 		</div>
 	);
 };
 
-export default Login;
+export default Signup;

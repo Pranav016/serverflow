@@ -1,0 +1,18 @@
+.authForm {
+	height: 80vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.authForm form {
+	width: 40vw;
+	padding: 20px;
+}
+
+.authForm hr {
+	border: 2px solid grey;
+	border-radius: 15px;
+	width: 40vw;
+}
