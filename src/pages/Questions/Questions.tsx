@@ -54,6 +54,7 @@ const Questions: React.FC = () => {
 		return () => {
 			setFilteredPosts(posts);
 		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [searchText, posts]);
 
 	useEffect(() => {
@@ -61,6 +62,7 @@ const Questions: React.FC = () => {
 		return () => {
 			setFilteredPosts(posts);
 		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [chosenTags, posts]);
 
 	useEffect(() => {
@@ -73,6 +75,7 @@ const Questions: React.FC = () => {
 			unsubscribe();
 			setPosts([]);
 		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	// tag functionalities

@@ -13,6 +13,7 @@ const SinglePost = () => {
 		return () => {
 			setPosts([]);
 		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const handleBack = () => {
