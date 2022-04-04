@@ -30,7 +30,7 @@ export interface commentInterface {
 	votes: number;
 }
 
-interface postInterface {
+export interface postInterface {
 	id: string;
 	data: DocumentData;
 }
@@ -59,7 +59,7 @@ interface contextInterface {
 	addComment: (id: string, comment: commentInterface) => void;
 	deletePost: (id: string) => void;
 	setPosts: React.Dispatch<React.SetStateAction<postInterface[]>>;
-	upvotePost: (id: string, vote: boolean) => void;
+	votePost: (id: string, vote: boolean) => void;
 }
 
 export const AppContext = createContext({} as contextInterface);
@@ -117,7 +117,7 @@ export default function AppProvider({
 			console.log((err as Error).message)
 		);
 	}
-	function upvotePost(id: string, vote: boolean) {
+	function votePost(id: string, vote: boolean) {
 		const docRef = doc(db, 'posts', id);
 		const reqPost = posts.filter((post) => post.id === id);
 		const updatedVotes = reqPost[0]?.data?.votes + (vote ? 1 : -1);
@@ -174,7 +174,7 @@ export default function AppProvider({
 		addComment,
 		deletePost,
 		setPosts,
-		upvotePost,
+		votePost,
 	};
 
 	return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

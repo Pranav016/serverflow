@@ -6,6 +6,7 @@ import NavBar from './components/NavBar/NavBar';
 import UserLoggedIn from './components/ProtectedRoutes/UserLoggedIn';
 import UserLoginRequired from './components/ProtectedRoutes/UserLoginRequired';
 import AppProvider from './context/AppContext';
+import AddPost from './pages/AddPost/AddPost';
 import Dashboard from './pages/Dashboard/Dashboard';
 import Error from './pages/Error/Error';
 import ForgotPassword from './pages/ForgotPassword/ForgotPassword';
@@ -49,6 +50,7 @@ function App() {
 							</UserLoginRequired>
 						}
 					/>
+					<Route path='add-post' element={<AddPost />} />
 					<Route
 						path='forgot-password'
 						element={<ForgotPassword />}
