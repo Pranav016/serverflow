@@ -1,0 +1,15 @@
+.main {
+	width: 100vw;
+	margin: 3vh;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+}
+
+.main .search-field {
+	width: 40%;
+}
+
+.search-field .MuiInput-input {
+	width: 35vw;
+}
