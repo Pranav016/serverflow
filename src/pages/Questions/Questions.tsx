@@ -96,6 +96,7 @@ const Questions: React.FC = () => {
 	function clearTagFilters() {
 		setChosenTags([]);
 		setNotChosenTags(tags);
+		setSearchText('');
 	}
 	return (
 		<div className='questions-console'>

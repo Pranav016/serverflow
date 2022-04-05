@@ -1,9 +1,28 @@
-import React, { useContext } from 'react';
-import { AppContext } from '../../context/AppContext';
+import React, { useContext, useEffect, useState } from 'react';
+import Post from '../../components/Post/Post';
+import { AppContext, postInterface } from '../../context/AppContext';
 import './Dashboard.css';
 
 const Dashboard = () => {
-	const { user } = useContext(AppContext);
+	const { user, posts, getPosts, setPosts } = useContext(AppContext);
+	const [filteredPosts, setFilteredPosts] = useState<postInterface[]>([]);
+	useEffect(() => {
+		getPosts();
+		return () => {
+			setPosts([]);
+		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+	useEffect(() => {
+		setFilteredPosts(
+			posts.filter((post) => post?.data?.authorEmail === user?.email)
+		);
+		console.log(posts[0]);
+
+		return () => {
+			setFilteredPosts([]);
+		};
+	}, [posts, user]);
 
 	return (
 		<div className='dashboard'>
@@ -42,7 +61,21 @@ const Dashboard = () => {
 			</div>
 			<div className='user-box'>
 				<h1>My Posts</h1>
-				<p>No posts to be shown!</p>
+				{filteredPosts ? (
+					filteredPosts?.map((post) => (
+						<Post
+							key={post?.id}
+							id={post?.id}
+							authorEmail={post?.data?.authorEmail}
+							heading={post?.data?.heading}
+							content={post?.data?.content}
+							votes={post?.data?.votes}
+							tags={post?.data?.tags}
+						/>
+					))
+				) : (
+					<p>No posts to be shown!</p>
+				)}
 			</div>
 		</div>
 	);
