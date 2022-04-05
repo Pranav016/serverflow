@@ -9,6 +9,7 @@ export interface TagsBarInterface {
 	handleDeleteTag: (tag: string) => void;
 	handleClickTag: (tag: string) => void;
 	clearTagFilters: () => void;
+	text: string;
 }
 
 const TagsBar = ({
@@ -17,6 +18,7 @@ const TagsBar = ({
 	handleDeleteTag,
 	handleClickTag,
 	clearTagFilters,
+	text,
 }: TagsBarInterface) => {
 	return (
 		<div className='tags-bar'>
@@ -43,7 +45,7 @@ const TagsBar = ({
 					))}
 			</div>
 			<div>
-				<Button onClick={clearTagFilters}>Clear filters</Button>
+				<Button onClick={clearTagFilters}>{text}</Button>
 			</div>
 		</div>
 	);

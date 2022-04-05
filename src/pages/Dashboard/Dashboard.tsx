@@ -4,15 +4,8 @@ import { AppContext, postInterface } from '../../context/AppContext';
 import './Dashboard.css';
 
 const Dashboard = () => {
-	const { user, posts, getPosts, setPosts } = useContext(AppContext);
+	const { user, posts } = useContext(AppContext);
 	const [filteredPosts, setFilteredPosts] = useState<postInterface[]>([]);
-	useEffect(() => {
-		getPosts();
-		return () => {
-			setPosts([]);
-		};
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
 	useEffect(() => {
 		setFilteredPosts(
 			posts.filter((post) => post?.data?.authorEmail === user?.email)

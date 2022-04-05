@@ -15,6 +15,8 @@ import {
 	doc,
 	DocumentData,
 	getDocs,
+	onSnapshot,
+	QuerySnapshot,
 	setDoc,
 	updateDoc,
 } from 'firebase/firestore';
@@ -70,6 +72,24 @@ export default function AppProvider({
 }: React.HTMLAttributes<Element>) {
 	const [user, setUser] = useState<User | null>(null);
 	const [posts, setPosts] = useState<postInterface[]>([]);
+
+	useEffect(() => {
+		const unsubscribe = onSnapshot(
+			postCollectionRef,
+			(snapshot: QuerySnapshot<DocumentData>) =>
+				setPosts(
+					snapshot?.docs?.map((doc) => ({
+						id: doc.id,
+						data: doc.data(),
+					}))
+				)
+		);
+		return () => {
+			unsubscribe();
+			setPosts([]);
+		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	// auth functions
 	function signup(email: string, password: string) {

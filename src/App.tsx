@@ -61,9 +61,9 @@ function App() {
 					<Route
 						path='forgot-password'
 						element={
-							<UserLoginRequired>
+							<UserLoggedIn>
 								<ForgotPassword />
-							</UserLoginRequired>
+							</UserLoggedIn>
 						}
 					/>
 					<Route

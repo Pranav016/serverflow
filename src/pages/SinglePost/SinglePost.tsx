@@ -14,19 +14,11 @@ import SingleComment from '../../components/SingleComment/SingleComment';
 import SearchField from '../../components/SearchField/SearchField';
 
 const SinglePost = () => {
-	const { user, posts, getPosts, setPosts, addComment, addFirstComment } =
-		useContext(AppContext);
+	const { user, posts, addComment, addFirstComment } = useContext(AppContext);
 	const [solution, setSolution] = useState<string>('');
 	const [filteredPost, setFilteredPost] = useState<postInterface[]>([]);
 	const navigate = useNavigate();
 	const { postId } = useParams();
-	useEffect(() => {
-		getPosts();
-		return () => {
-			setPosts([]);
-		};
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
 
 	const handleBack = () => {
 		navigate(-1);
@@ -59,7 +51,6 @@ const SinglePost = () => {
 		} else {
 			addFirstComment(filteredPost[0]?.id, newComment);
 		}
-		getPosts();
 		setSolution('');
 	};
 

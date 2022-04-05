@@ -1,21 +1,26 @@
-import { onSnapshot } from 'firebase/firestore';
 import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Post from '../../components/Post/Post';
 import SearchField from '../../components/SearchField/SearchField';
 import TagsBar from '../../components/TagsBar/TagsBar';
-import { postCollectionRef } from '../../config/firebase.collections';
 import { AppContext, postInterface } from '../../context/AppContext';
 import tags from '../../lib/tags';
 import './Questions.css';
 
 const Questions: React.FC = () => {
-	const { posts, setPosts } = useContext(AppContext);
+	const { posts } = useContext(AppContext);
 	const [searchText, setSearchText] = useState('');
 	const navigate = useNavigate();
 	const [filteredPosts, setFilteredPosts] = useState<postInterface[]>([]);
 	const [notChosenTags, setNotChosenTags] = useState<string[]>(tags);
 	const [chosenTags, setChosenTags] = useState<string[]>([]);
+
+	useEffect(() => {
+		setFilteredPosts(posts);
+		return () => {
+			setFilteredPosts([]);
+		};
+	}, [posts]);
 
 	function filterSearch() {
 		if (searchText === '') {
@@ -71,19 +76,6 @@ const Questions: React.FC = () => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [chosenTags, posts]);
 
-	useEffect(() => {
-		const unsubscribe = onSnapshot(postCollectionRef, (snapshot) =>
-			setPosts(
-				snapshot?.docs?.map((doc) => ({ id: doc.id, data: doc.data() }))
-			)
-		);
-		return () => {
-			unsubscribe();
-			setPosts([]);
-		};
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
-
 	// tag functionalities
 	function handleDeleteTag(tag: string) {
 		setChosenTags((chosenTagsLatest) =>
@@ -119,6 +111,7 @@ const Questions: React.FC = () => {
 				handleDeleteTag={handleDeleteTag}
 				handleClickTag={handleClickTag}
 				clearTagFilters={clearTagFilters}
+				text={'Clear Filters'}
 			/>
 			{filteredPosts
 				? filteredPosts.map((post) => (
