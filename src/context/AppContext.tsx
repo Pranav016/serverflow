@@ -19,6 +19,7 @@ import {
 	updateDoc,
 } from 'firebase/firestore';
 import React, { createContext, useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 import { postCollectionRef } from '../config/firebase.collections';
 import { auth, db } from '../config/firebaseConfig';
 
@@ -104,12 +105,12 @@ export default function AppProvider({
 				res?.docs?.map((doc) => ({ id: doc.id, data: doc.data() }))
 			)
 			.then((postsList) => setPosts(postsList))
-			.catch((err) => console.log(err));
+			.catch((err) => toast.error(err.message));
 	}
 	function addPost(post: postDataInterface) {
 		addDoc(postCollectionRef, post)
-			.then((res) => console.log(res))
-			.catch((err) => console.log(err));
+			.then(() => toast.success('Posted successfully!'))
+			.catch((err) => toast.error(err.message));
 	}
 	function updatePostContent(id: string, content: string) {
 		const docRef = doc(db, 'posts', id);
@@ -122,7 +123,7 @@ export default function AppProvider({
 		const reqPost = posts.filter((post) => post.id === id);
 		const updatedVotes = reqPost[0]?.data?.votes + (vote ? 1 : -1);
 		updateDoc(docRef, { votes: updatedVotes }).catch((err) =>
-			console.log((err as Error).message)
+			toast.error((err as Error).message)
 		);
 	}
 	// function upvoteComment(id:string, post: postDataInterface, vote: boolean) {
@@ -138,10 +139,11 @@ export default function AppProvider({
 	function addFirstComment(id: string, comment: commentInterface) {
 		const docRef = doc(db, 'posts', id);
 		const reqPost = posts.filter((post) => post.id === id);
-		const updatedPost = { ...reqPost[0], comments: [comment] };
-		setDoc(docRef, updatedPost).catch((err) =>
-			console.log((err as Error).message)
-		);
+		const updatedPost = { ...reqPost[0].data, comments: [comment] };
+		console.log(updatedPost);
+		setDoc(docRef, updatedPost)
+			.then(() => toast.success('Added Comment!'))
+			.catch((err) => toast.error((err as Error).message));
 	}
 	function addComment(id: string, comment: commentInterface) {
 		const docRef = doc(db, 'posts', id);
@@ -150,13 +152,13 @@ export default function AppProvider({
 			...reqPost[0].data.comments,
 			comment,
 		];
-		updateDoc(docRef, { comments: updatedComments }).catch((err) =>
-			console.log((err as Error).message)
-		);
+		updateDoc(docRef, { comments: updatedComments })
+			.then(() => toast.success('Added Comment!'))
+			.catch((err) => toast.error((err as Error).message));
 	}
 	function deletePost(id: string) {
 		const docRef = doc(db, 'posts', id);
-		deleteDoc(docRef).catch((err) => (err as Error).message);
+		deleteDoc(docRef).catch((err) => toast.error((err as Error).message));
 	}
 
 	const value: contextInterface = {
