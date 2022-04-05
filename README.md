@@ -16,7 +16,7 @@
 <div align="center">
   <h2>About</h2>
 
-![Workflow status](https://github.com/Pranav016/serverflow/actions/workflows/ci-cd.yaml/badge.svg?branch=master) ![Release](/github/v/release/Pranav016/serverflow?display_name=tag&sort=semver) [![Netlify Status](https://api.netlify.com/api/v1/badges/68f58760-b1f1-459a-9640-1b397a3a9a8b/deploy-status)](https://app.netlify.com/sites/serverflow/deploys)
+![Workflow status](https://github.com/Pranav016/serverflow/actions/workflows/ci-cd.yaml/badge.svg?branch=master) ![Release](https://img.shields.io/github/v/release/Pranav016/serverflow?display_name=tag&sort=semver) [![Netlify Status](https://api.netlify.com/api/v1/badges/68f58760-b1f1-459a-9640-1b397a3a9a8b/deploy-status)](https://app.netlify.com/sites/serverflow/deploys)
 
 -   Serverflow is a platform where Software Engineers and
     Developers come to solve their doubts and contribute to the
