@@ -1,5 +1,6 @@
 import { onSnapshot } from 'firebase/firestore';
 import React, { useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Post from '../../components/Post/Post';
 import SearchField from '../../components/SearchField/SearchField';
 import TagsBar from '../../components/TagsBar/TagsBar';
@@ -11,6 +12,7 @@ import './Questions.css';
 const Questions: React.FC = () => {
 	const { posts, setPosts } = useContext(AppContext);
 	const [searchText, setSearchText] = useState('');
+	const navigate = useNavigate();
 	const [filteredPosts, setFilteredPosts] = useState<postInterface[]>([]);
 	const [notChosenTags, setNotChosenTags] = useState<string[]>(tags);
 	const [chosenTags, setChosenTags] = useState<string[]>([]);
@@ -101,8 +103,11 @@ const Questions: React.FC = () => {
 	return (
 		<div className='questions-console'>
 			<SearchField
-				searchText={searchText}
-				setSearchText={setSearchText}
+				inputText={searchText}
+				setInputText={setSearchText}
+				label={'Search-Posts'}
+				buttonText={'Add Post'}
+				handleClick={() => navigate('/add-post')}
 			/>
 			<TagsBar
 				chosenTags={chosenTags}

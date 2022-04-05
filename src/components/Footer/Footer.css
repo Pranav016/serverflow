@@ -12,3 +12,10 @@
 .footer-div2 {
 	width: 20vw;
 }
+
+@media screen and (max-width: 600px) {
+	.footer {
+		height: fit-content;
+		flex-direction: column;
+	}
+}

@@ -1,4 +1,3 @@
-import { TextField } from '@mui/material';
 import React, { useContext, useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import toast from 'react-hot-toast';
@@ -12,6 +11,7 @@ import {
 import { v4 as uuidv4 } from 'uuid';
 import './SinglePost.css';
 import SingleComment from '../../components/SingleComment/SingleComment';
+import SearchField from '../../components/SearchField/SearchField';
 
 const SinglePost = () => {
 	const { user, posts, getPosts, setPosts, addComment, addFirstComment } =
@@ -38,7 +38,7 @@ const SinglePost = () => {
 		};
 	}, [posts, postId]);
 
-	const handleAdd = () => {
+	const handleClick = () => {
 		if (!user) {
 			navigate('/login');
 			return;
@@ -79,14 +79,13 @@ const SinglePost = () => {
 					singlePage={true}></Post>
 			</div>
 			<div>
-				<TextField
-					id='standard-basic'
+				<SearchField
+					inputText={solution}
+					setInputText={setSolution}
 					label='Add Solution'
-					variant='standard'
-					onChange={(e) => setSolution(e.target.value)}
-					value={solution}
+					handleClick={handleClick}
+					buttonText={'Add'}
 				/>
-				<Button onClick={handleAdd}>Add</Button>
 			</div>
 			<div>
 				{filteredPost[0]?.data?.comments
