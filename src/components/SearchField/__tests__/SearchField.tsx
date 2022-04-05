@@ -4,12 +4,21 @@ import SearchField, { searchFieldProps } from '../SearchField';
 import { BrowserRouter } from 'react-router-dom';
 import '@testing-library/jest-dom';
 
-const MockedSearchField = ({ searchText, setSearchText }: searchFieldProps) => {
+const MockedSearchField = ({
+	inputText,
+	setInputText,
+	label,
+	buttonText,
+	handleClick,
+}: searchFieldProps) => {
 	return (
 		<BrowserRouter>
 			<SearchField
-				searchText={searchText}
-				setSearchText={setSearchText}
+				inputText={inputText}
+				setInputText={setInputText}
+				label={label}
+				buttonText={buttonText}
+				handleClick={handleClick}
 			/>
 		</BrowserRouter>
 	);
@@ -18,10 +27,16 @@ const MockedSearchField = ({ searchText, setSearchText }: searchFieldProps) => {
 describe('Test SearchField component', () => {
 	it('Check if component gets correctly rendered', () => {
 		render(
-			<MockedSearchField searchText='jest' setSearchText={jest.fn()} />
+			<MockedSearchField
+				inputText='jest'
+				setInputText={jest.fn()}
+				label='search'
+				buttonText='Search'
+				handleClick={jest.fn()}
+			/>
 		);
 		expect(
-			screen.getByRole('button', { name: /add post/i })
+			screen.getByRole('button', { name: /search/i })
 		).toBeInTheDocument();
 	});
 });

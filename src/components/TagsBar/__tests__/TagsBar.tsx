@@ -12,6 +12,7 @@ describe('Test TagsBar component', () => {
 				handleDeleteTag={jest.fn()}
 				handleClickTag={jest.fn()}
 				clearTagFilters={jest.fn()}
+				text='Clear filters'
 			/>
 		);
 		expect(screen.getByText(/cpp/i)).toBeInTheDocument();
