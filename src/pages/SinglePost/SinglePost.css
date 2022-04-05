@@ -1,5 +1,5 @@
 .singlePostPage {
-	min-height: 60vh;
+	height: fit-content;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -10,4 +10,5 @@
 	width: 80vw;
 	display: flex;
 	justify-content: flex-start;
+	margin-top: 2vh;
 }
