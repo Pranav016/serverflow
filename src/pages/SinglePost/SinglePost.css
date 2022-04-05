@@ -1,0 +1,13 @@
+.singlePostPage {
+	min-height: 60vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.nested-navbar {
+	width: 80vw;
+	display: flex;
+	justify-content: flex-start;
+}
