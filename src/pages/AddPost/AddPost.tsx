@@ -87,6 +87,7 @@ const AddPost = () => {
 					handleClickTag={handleClickTag}
 					handleDeleteTag={handleDeleteTag}
 					clearTagFilters={clearTagFilters}
+					text={'Clear tags'}
 				/>
 				<hr />
 				<Button type='submit'>Submit Post</Button>

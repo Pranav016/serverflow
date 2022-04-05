@@ -71,9 +71,11 @@ const Post = ({
 					))}
 				</div>
 				{!singlePage && (
-					<Link to={`${id}`}>
-						<Button>Read More</Button>
-					</Link>
+					<div className='read-more'>
+						<Link to={`${id}`}>
+							<Button>Read More</Button>
+						</Link>
+					</div>
 				)}
 			</div>
 		</div>
