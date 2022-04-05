@@ -50,10 +50,21 @@ function App() {
 							</UserLoginRequired>
 						}
 					/>
-					<Route path='add-post' element={<AddPost />} />
+					<Route
+						path='add-post'
+						element={
+							<UserLoginRequired>
+								<AddPost />
+							</UserLoginRequired>
+						}
+					/>
 					<Route
 						path='forgot-password'
-						element={<ForgotPassword />}
+						element={
+							<UserLoginRequired>
+								<ForgotPassword />
+							</UserLoginRequired>
+						}
 					/>
 					<Route
 						path='*'

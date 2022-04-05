@@ -12,6 +12,16 @@ const tags: string[] = [
 	'golang',
 	'scala',
 	'sql',
+	'mongo-db',
+	'jest',
+	'AWS',
+	'GCP',
+	'Digital-Ocean',
+	'Netlify',
+	'Heroku',
+	'spring-boot',
+	'express.js',
+	'Node.js',
 ];
 
 export default tags;
