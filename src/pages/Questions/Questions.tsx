@@ -19,7 +19,9 @@ const Questions: React.FC = () => {
 
 	function filterSearch() {
 		if (searchText === '') {
-			setFilteredPosts(posts);
+			setFilteredPosts((filteredPostsLatest) =>
+				filteredPostsLatest ? filteredPostsLatest : posts
+			);
 			return;
 		}
 		setFilteredPosts((filteredPostsLatest) =>
@@ -37,7 +39,9 @@ const Questions: React.FC = () => {
 
 	function filterTags() {
 		if (chosenTags.length === 0) {
-			setFilteredPosts(posts);
+			setFilteredPosts((filteredPostsLatest) =>
+				filteredPostsLatest ? filteredPostsLatest : posts
+			);
 			return;
 		}
 		setFilteredPosts((filteredPostsLatest) =>

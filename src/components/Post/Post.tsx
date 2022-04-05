@@ -53,7 +53,7 @@ const Post = ({
 				/>
 			</div>
 			<div className='post-info'>
-				<h1>{heading}</h1>
+				<h2>{heading}</h2>
 				<h5>By {authorEmail}</h5>
 				<p>
 					{content?.length > 20 && !singlePage
