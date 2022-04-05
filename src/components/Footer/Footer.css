@@ -1,0 +1,14 @@
+.footer {
+	height: 20vh;
+	width: 99vw;
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+}
+
+.footer-div1 {
+	width: 50vw;
+}
+.footer-div2 {
+	width: 20vw;
+}
