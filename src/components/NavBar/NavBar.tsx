@@ -21,7 +21,7 @@ const NavBar: React.FC = () => {
 		<Navbar collapseOnSelect expand='lg' bg='dark' variant='dark'>
 			<Container>
 				<Navbar.Brand href='https://serverflow.netlify.app/'>
-					<img src='https://i.ibb.co/GVf0jq5/logo.png' alt='logo' />
+					<img src='https://i.ibb.co/WWhWg4q/logo.png' alt='logo' />
 					ServerFlow
 				</Navbar.Brand>
 				<Navbar.Toggle aria-controls='responsive-navbar-nav' />
