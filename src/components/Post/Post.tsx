@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { AppContext, commentInterface } from '../../context/AppContext';
 import { TiArrowSortedUp, TiArrowSortedDown } from 'react-icons/ti';
 import './Post.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import { Chip } from '@mui/material';
 
@@ -14,6 +14,7 @@ export interface localPostInterface {
 	votes: number;
 	tags: string[];
 	comments?: commentInterface[];
+	singlePage?: boolean;
 }
 
 const Post = ({
@@ -24,23 +25,42 @@ const Post = ({
 	votes,
 	tags,
 	comments,
+	singlePage,
 }: localPostInterface) => {
-	const { votePost } = useContext(AppContext);
+	const { user, votePost } = useContext(AppContext);
+	const navigate = useNavigate();
 	return (
 		<div className='post-card'>
 			<div className='vote'>
-				<TiArrowSortedUp onClick={() => votePost(id, true)} />
+				<TiArrowSortedUp
+					onClick={() => {
+						if (user) {
+							votePost(id, true);
+						} else {
+							navigate('/login');
+						}
+					}}
+				/>
 				<h3>{votes}</h3>
-				<TiArrowSortedDown onClick={() => votePost(id, false)} />
+				<TiArrowSortedDown
+					onClick={() => {
+						if (user) {
+							votePost(id, false);
+						} else {
+							navigate('/login');
+						}
+					}}
+				/>
 			</div>
 			<div className='post-info'>
 				<h1>{heading}</h1>
 				<h5>By {authorEmail}</h5>
 				<p>
-					{content?.length > 20 ? content.substring(0, 20) : content}
-					...
+					{content?.length > 20 && !singlePage
+						? content.substring(0, 20) + '...'
+						: content}
 				</p>
-				<div className='tags'>
+				<div className='post-tags'>
 					{tags?.map((tag, index) => (
 						<Chip
 							key={index}
@@ -50,9 +70,11 @@ const Post = ({
 						/>
 					))}
 				</div>
-				<Link to={`${id}`}>
-					<Button>Read More</Button>
-				</Link>
+				{!singlePage && (
+					<Link to={`${id}`}>
+						<Button>Read More</Button>
+					</Link>
+				)}
 			</div>
 		</div>
 	);

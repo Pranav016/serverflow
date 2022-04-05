@@ -1,6 +1,7 @@
 import { Chip } from '@mui/material';
 import React from 'react';
 import { Button } from 'react-bootstrap';
+import './TagsBar.css';
 
 export interface TagsBarInterface {
 	chosenTags: string[];
@@ -19,27 +20,31 @@ const TagsBar = ({
 }: TagsBarInterface) => {
 	return (
 		<div className='tags-bar'>
-			{chosenTags &&
-				chosenTags.map((tag, index) => (
-					<Chip
-						key={index}
-						label={tag}
-						color='success'
-						variant='outlined'
-						onDelete={() => handleDeleteTag(tag)}
-					/>
-				))}
-			{notChosenTags &&
-				notChosenTags.map((tag, index) => (
-					<Chip
-						key={index}
-						label={tag}
-						color='primary'
-						variant='outlined'
-						onClick={() => handleClickTag(tag)}
-					/>
-				))}
-			<Button onClick={clearTagFilters}>Clear filters</Button>
+			<div className='tags'>
+				{chosenTags &&
+					chosenTags.map((tag, index) => (
+						<Chip
+							key={index}
+							label={tag}
+							color='success'
+							variant='outlined'
+							onDelete={() => handleDeleteTag(tag)}
+						/>
+					))}
+				{notChosenTags &&
+					notChosenTags.map((tag, index) => (
+						<Chip
+							key={index}
+							label={tag}
+							color='primary'
+							variant='outlined'
+							onClick={() => handleClickTag(tag)}
+						/>
+					))}
+			</div>
+			<div>
+				<Button onClick={clearTagFilters}>Clear filters</Button>
+			</div>
 		</div>
 	);
 };
