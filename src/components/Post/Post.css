@@ -1,5 +1,6 @@
 .post-card {
-	height: 25vh;
+	min-height: 28vh;
+	height: fit-content;
 	width: 40vw;
 	display: flex;
 	flex-direction: row;
@@ -25,10 +26,10 @@
 }
 
 .post-card .post-info {
-	width: 70%;
+	width: 60%;
 	height: 20vh;
 }
 
-.tags {
-	padding-bottom: 0.3vh;
+.post-tags {
+	padding: 0.7vh 0;
 }
