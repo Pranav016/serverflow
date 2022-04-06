@@ -1,5 +1,5 @@
 .main {
-	width: 40vw;
+	width: 55vw;
 	margin: 3vh;
 	display: flex;
 	flex-direction: row;
@@ -8,4 +8,10 @@
 
 .input-field .MuiInput-input {
 	width: 30vw;
+}
+
+@media screen and (max-width: 900px) {
+	.main {
+		width: 80vw;
+	}
 }

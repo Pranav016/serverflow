@@ -59,7 +59,7 @@ const SinglePost = () => {
 			<div className='nested-navbar'>
 				<Button onClick={handleBack}>Go Back</Button>
 			</div>
-			<div>
+			<div className='single-post'>
 				<Post
 					id={filteredPost[0]?.id}
 					authorEmail={filteredPost[0]?.data?.authorEmail}
@@ -69,7 +69,7 @@ const SinglePost = () => {
 					votes={filteredPost[0]?.data?.votes}
 					singlePage={true}></Post>
 			</div>
-			<div>
+			<div className='addPost-input'>
 				<SearchField
 					inputText={solution}
 					setInputText={setSolution}
@@ -78,7 +78,7 @@ const SinglePost = () => {
 					buttonText={'Add'}
 				/>
 			</div>
-			<div>
+			<div className='comments-console'>
 				{filteredPost[0]?.data?.comments
 					? filteredPost[0]?.data?.comments.map(
 							(comment: commentInterface) => (

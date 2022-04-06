@@ -1,12 +1,15 @@
 .post-card {
-	width: 40vw;
+	min-height: 30vh;
+	height: fit-content;
+	width: 55vw;
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
-	align-items: baseline;
+	align-items: center;
 	border: 3px solid black;
 	border-radius: 15px;
-	margin: 2vh;
+	margin: 2vh 0;
+	word-wrap: break-word;
 }
 
 .post-card .vote {
@@ -33,4 +36,10 @@
 
 .read-more {
 	margin-bottom: 2vh;
+}
+
+@media screen and (max-width: 900px) {
+	.post-card {
+		width: 80vw;
+	}
 }

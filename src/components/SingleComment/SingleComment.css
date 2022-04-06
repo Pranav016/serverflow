@@ -1,11 +1,12 @@
 .comment-card {
 	min-height: 23vh;
 	height: fit-content;
-	width: 30vw;
+	width: 50vw;
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
+	word-wrap: break-word;
 }
 
 .comment-card .vote {
@@ -14,7 +15,7 @@
 	display: flex;
 	flex-direction: column;
 	justify-content: space-evenly;
-	align-items: center;
+	align-items: flex-start;
 }
 
 .comment-card .vote svg {
@@ -22,7 +23,13 @@
 	width: 2vh;
 }
 
-.comment-card .post-info {
+.comment-card .comment-info {
 	width: 60%;
-	height: 20vh;
+	height: fit-content;
+}
+
+@media screen and (max-width: 900px) {
+	.comment-card {
+		width: 70vw;
+	}
 }
