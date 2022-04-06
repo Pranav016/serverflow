@@ -1,9 +1,9 @@
 import { TextField } from '@mui/material';
 import React from 'react';
 import { Button } from 'react-bootstrap';
-import './SearchField.css';
+import './InputField.css';
 
-export interface searchFieldProps {
+export interface inputFieldProps {
 	inputText: string;
 	label: string;
 	buttonText: string;
@@ -11,13 +11,13 @@ export interface searchFieldProps {
 	setInputText: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const SearchField = ({
+const InputField = ({
 	inputText,
 	setInputText,
 	label,
 	buttonText,
 	handleClick,
-}: searchFieldProps) => {
+}: inputFieldProps) => {
 	return (
 		<div className='main'>
 			<div className='input-field'>
@@ -29,11 +29,11 @@ const SearchField = ({
 					value={inputText}
 				/>
 			</div>
-			<div className='add-post'>
+			<div className='add'>
 				<Button onClick={handleClick}>{buttonText}</Button>
 			</div>
 		</div>
 	);
 };
 
-export default SearchField;
+export default InputField;

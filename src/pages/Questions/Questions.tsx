@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Post from '../../components/Post/Post';
-import SearchField from '../../components/SearchField/SearchField';
+import InputField from '../../components/InputField/InputField';
 import TagsBar from '../../components/TagsBar/TagsBar';
 import { AppContext, postInterface } from '../../context/AppContext';
 import tags from '../../lib/tags';
@@ -98,7 +98,7 @@ const Questions: React.FC = () => {
 	}
 	return (
 		<div className='questions-console'>
-			<SearchField
+			<InputField
 				inputText={searchText}
 				setInputText={setSearchText}
 				label={'Search-Posts'}

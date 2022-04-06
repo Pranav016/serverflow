@@ -1,19 +1,19 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import SearchField, { searchFieldProps } from '../SearchField';
+import InputField, { inputFieldProps } from '../InputField';
 import { BrowserRouter } from 'react-router-dom';
 import '@testing-library/jest-dom';
 
-const MockedSearchField = ({
+const MockedInputField = ({
 	inputText,
 	setInputText,
 	label,
 	buttonText,
 	handleClick,
-}: searchFieldProps) => {
+}: inputFieldProps) => {
 	return (
 		<BrowserRouter>
-			<SearchField
+			<InputField
 				inputText={inputText}
 				setInputText={setInputText}
 				label={label}
@@ -24,10 +24,10 @@ const MockedSearchField = ({
 	);
 };
 
-describe('Test SearchField component', () => {
+describe('Test InputField component', () => {
 	it('Check if component gets correctly rendered', () => {
 		render(
-			<MockedSearchField
+			<MockedInputField
 				inputText='jest'
 				setInputText={jest.fn()}
 				label='search'

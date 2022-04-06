@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { AppContext, commentInterface } from '../../context/AppContext';
 import { TiArrowSortedUp, TiArrowSortedDown } from 'react-icons/ti';
 import './Post.css';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import { Chip } from '@mui/material';
 
@@ -14,7 +14,6 @@ export interface localPostInterface {
 	votes: number;
 	tags: string[];
 	comments?: commentInterface[];
-	singlePage?: boolean;
 }
 
 const Post = ({
@@ -25,9 +24,10 @@ const Post = ({
 	votes,
 	tags,
 	comments,
-	singlePage,
 }: localPostInterface) => {
 	const { user, votePost } = useContext(AppContext);
+	const { pathname } = useLocation();
+	const renderedOnSinglePage = pathname !== '/questions';
 	const navigate = useNavigate();
 	return (
 		<div className='post-card'>
@@ -56,7 +56,7 @@ const Post = ({
 				<h2>{heading}</h2>
 				<h5>By {authorEmail}</h5>
 				<p>
-					{content?.length > 20 && !singlePage
+					{content?.length > 20 && !renderedOnSinglePage
 						? content.substring(0, 20) + '...'
 						: content}
 				</p>
@@ -70,8 +70,8 @@ const Post = ({
 						/>
 					))}
 				</div>
-				{!singlePage && (
-					<div className='read-more'>
+				{!renderedOnSinglePage && (
+					<div className='post-footer'>
 						<Link to={`${id}`}>
 							<Button>Read More</Button>
 						</Link>

@@ -23,7 +23,7 @@ import {
 import React, { createContext, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { postCollectionRef } from '../config/firebase.collections';
-import { auth, db } from '../config/firebaseConfig';
+import auth, { db } from '../config/firebaseConfig';
 
 // typescript interfaces
 export interface commentInterface {

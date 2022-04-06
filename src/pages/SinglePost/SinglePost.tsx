@@ -11,7 +11,7 @@ import {
 import { v4 as uuidv4 } from 'uuid';
 import './SinglePost.css';
 import SingleComment from '../../components/SingleComment/SingleComment';
-import SearchField from '../../components/SearchField/SearchField';
+import InputField from '../../components/InputField/InputField';
 
 const SinglePost = () => {
 	const { user, posts, addComment, addFirstComment } = useContext(AppContext);
@@ -66,11 +66,10 @@ const SinglePost = () => {
 					heading={filteredPost[0]?.data?.heading}
 					content={filteredPost[0]?.data?.content}
 					tags={filteredPost[0]?.data?.tags}
-					votes={filteredPost[0]?.data?.votes}
-					singlePage={true}></Post>
+					votes={filteredPost[0]?.data?.votes}></Post>
 			</div>
 			<div className='addPost-input'>
-				<SearchField
+				<InputField
 					inputText={solution}
 					setInputText={setSolution}
 					label='Add Solution'
