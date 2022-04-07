@@ -10,8 +10,6 @@ const Dashboard = () => {
 		setFilteredPosts(
 			posts.filter((post) => post?.data?.authorEmail === user?.email)
 		);
-		console.log(posts[0]);
-
 		return () => {
 			setFilteredPosts([]);
 		};
@@ -19,10 +17,10 @@ const Dashboard = () => {
 
 	return (
 		<div className='dashboard'>
-			<div className='user-box'>
+			<div className='info-box'>
 				<h1>My Info</h1>
-				<div className='user-info'>
-					<div>
+				<div className='user-box'>
+					<div className='user-img'>
 						{user?.photoURL ? (
 							<img src={user.photoURL} alt='userImage' />
 						) : (
@@ -32,7 +30,7 @@ const Dashboard = () => {
 							/>
 						)}
 					</div>
-					<div>
+					<div className='user-info-text'>
 						<span>
 							<h5>Email-</h5> {user?.email}
 						</span>
@@ -52,23 +50,25 @@ const Dashboard = () => {
 					</div>
 				</div>
 			</div>
-			<div className='user-box'>
+			<div className='info-box'>
 				<h1>My Posts</h1>
-				{filteredPosts ? (
-					filteredPosts?.map((post) => (
-						<Post
-							key={post?.id}
-							id={post?.id}
-							authorEmail={post?.data?.authorEmail}
-							heading={post?.data?.heading}
-							content={post?.data?.content}
-							votes={post?.data?.votes}
-							tags={post?.data?.tags}
-						/>
-					))
-				) : (
-					<p>No posts to be shown!</p>
-				)}
+				<div className='user-posts'>
+					{filteredPosts ? (
+						filteredPosts?.map((post) => (
+							<Post
+								key={post?.id}
+								id={post?.id}
+								authorEmail={post?.data?.authorEmail}
+								heading={post?.data?.heading}
+								content={post?.data?.content}
+								votes={post?.data?.votes}
+								tags={post?.data?.tags}
+							/>
+						))
+					) : (
+						<p>No posts to be shown!</p>
+					)}
+				</div>
 			</div>
 		</div>
 	);
