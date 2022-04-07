@@ -18,9 +18,9 @@ import SinglePost from './pages/SinglePost/SinglePost';
 
 function App() {
 	return (
-		<AppProvider>
-			<Toaster position='top-center' reverseOrder={false} />
-			<BrowserRouter>
+		<BrowserRouter>
+			<AppProvider>
+				<Toaster position='top-center' reverseOrder={false} />
 				<NavBar />
 				<Routes>
 					<Route path='/' element={<Home />} />
@@ -71,8 +71,8 @@ function App() {
 						element={<Error text={'Page not found'} />}
 					/>
 				</Routes>
-			</BrowserRouter>
-		</AppProvider>
+			</AppProvider>
+		</BrowserRouter>
 	);
 }
 
