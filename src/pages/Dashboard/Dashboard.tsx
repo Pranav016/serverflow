@@ -8,10 +8,8 @@ const Dashboard = () => {
 	const [filteredPosts, setFilteredPosts] = useState<postInterface[]>([]);
 	useEffect(() => {
 		setFilteredPosts(
-			posts.filter((post) => post?.data?.authorEmail === user?.email)
+			posts?.filter((post) => post?.data?.authorEmail === user?.email)
 		);
-		console.log(posts[0]);
-
 		return () => {
 			setFilteredPosts([]);
 		};
@@ -54,7 +52,7 @@ const Dashboard = () => {
 			</div>
 			<div className='user-box'>
 				<h1>My Posts</h1>
-				{filteredPosts ? (
+				{filteredPosts.length ? (
 					filteredPosts?.map((post) => (
 						<Post
 							key={post?.id}

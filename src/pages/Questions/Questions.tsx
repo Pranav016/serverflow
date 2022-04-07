@@ -113,19 +113,21 @@ const Questions: React.FC = () => {
 				clearTagFilters={clearTagFilters}
 				text={'Clear Filters'}
 			/>
-			{filteredPosts
-				? filteredPosts.map((post) => (
-						<Post
-							key={post.id}
-							id={post.id}
-							authorEmail={post.data.authorEmail}
-							heading={post.data.heading}
-							content={post.data.content}
-							tags={post.data.tags}
-							votes={post.data.votes}
-						/>
-				  ))
-				: 'No posts found!'}
+			{filteredPosts.length ? (
+				filteredPosts.map((post) => (
+					<Post
+						key={post.id}
+						id={post.id}
+						authorEmail={post.data.authorEmail}
+						heading={post.data.heading}
+						content={post.data.content}
+						tags={post.data.tags}
+						votes={post.data.votes}
+					/>
+				))
+			) : (
+				<p className='no-post'>No posts found!</p>
+			)}
 		</div>
 	);
 };

@@ -5,6 +5,7 @@ import './Post.css';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import { Chip } from '@mui/material';
+import { RiDeleteBinFill } from 'react-icons/ri';
 
 export interface localPostInterface {
 	id: string;
@@ -25,7 +26,7 @@ const Post = ({
 	tags,
 	comments,
 }: localPostInterface) => {
-	const { user, votePost } = useContext(AppContext);
+	const { user, votePost, sweetAlert, deletePost } = useContext(AppContext);
 	const { pathname } = useLocation();
 	const renderedOnSinglePage = pathname !== '/questions';
 	const navigate = useNavigate();
@@ -70,13 +71,39 @@ const Post = ({
 						/>
 					))}
 				</div>
-				{!renderedOnSinglePage && (
-					<div className='post-footer'>
-						<Link to={`${id}`}>
-							<Button>Read More</Button>
-						</Link>
+				<div className='post-footer'>
+					<div>
+						{!renderedOnSinglePage && (
+							<Link to={`${id}`}>
+								<Button>Read More</Button>
+							</Link>
+						)}
 					</div>
-				)}
+					<div>
+						{user?.email === authorEmail && (
+							<RiDeleteBinFill
+								onClick={() =>
+									sweetAlert({
+										id,
+										title: 'Are you sure?',
+										text: "You won't be able to revert this!",
+										icon: 'warning',
+										showCancelButton: true,
+										confirmButtonColor: '#3085d6',
+										cancelButtonColor: '#d33',
+										confirmButtonText: 'Yes, delete it!',
+										msg: [
+											'Deleted!',
+											'Your file has been deleted.',
+											'success',
+										],
+										onConfirm: deletePost,
+									})
+								}
+							/>
+						)}
+					</div>
+				</div>
 			</div>
 		</div>
 	);

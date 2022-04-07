@@ -24,6 +24,8 @@ import React, { createContext, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { postCollectionRef } from '../config/firebase.collections';
 import auth, { db } from '../config/firebaseConfig';
+import Swal, { SweetAlertIcon } from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 
 // typescript interfaces
 export interface commentInterface {
@@ -47,6 +49,19 @@ export interface postDataInterface {
 	comments?: commentInterface[];
 }
 
+interface sweetAlertInterface {
+	id: string;
+	title: string;
+	text: string;
+	icon: SweetAlertIcon;
+	showCancelButton: boolean;
+	confirmButtonColor: string;
+	cancelButtonColor: string;
+	confirmButtonText: string;
+	msg: string[];
+	onConfirm: (id: string) => void;
+}
+
 interface contextInterface {
 	user: User | null;
 	posts: postInterface[];
@@ -63,6 +78,16 @@ interface contextInterface {
 	deletePost: (id: string) => void;
 	setPosts: React.Dispatch<React.SetStateAction<postInterface[]>>;
 	votePost: (id: string, vote: boolean) => void;
+	sweetAlert: ({
+		title,
+		text,
+		icon,
+		showCancelButton,
+		confirmButtonColor,
+		cancelButtonColor,
+		confirmButtonText,
+		msg,
+	}: sweetAlertInterface) => void;
 }
 
 export const AppContext = createContext({} as contextInterface);
@@ -72,6 +97,7 @@ export default function AppProvider({
 }: React.HTMLAttributes<Element>) {
 	const [user, setUser] = useState<User | null>(null);
 	const [posts, setPosts] = useState<postInterface[]>([]);
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		const unsubscribe = onSnapshot(
@@ -178,7 +204,45 @@ export default function AppProvider({
 	}
 	function deletePost(id: string) {
 		const docRef = doc(db, 'posts', id);
-		deleteDoc(docRef).catch((err) => toast.error((err as Error).message));
+		deleteDoc(docRef)
+			.then(() => {
+				navigate('/questions');
+			})
+			.catch((err) => toast.error((err as Error).message));
+	}
+
+	function sweetAlert({
+		id,
+		title,
+		text,
+		icon,
+		showCancelButton,
+		confirmButtonColor,
+		cancelButtonColor,
+		confirmButtonText,
+		msg,
+		onConfirm,
+	}: sweetAlertInterface) {
+		Swal.fire({
+			title,
+			text,
+			icon,
+			showCancelButton,
+			confirmButtonColor,
+			cancelButtonColor,
+			confirmButtonText,
+		})
+			.then((result) => {
+				if (result?.isConfirmed) {
+					try {
+						onConfirm(id);
+						Swal.fire(...msg);
+					} catch (err) {
+						toast.error((err as Error).message);
+					}
+				}
+			})
+			.catch((err) => toast.error(err.message));
 	}
 
 	const value: contextInterface = {
@@ -197,6 +261,7 @@ export default function AppProvider({
 		deletePost,
 		setPosts,
 		votePost,
+		sweetAlert,
 	};
 
 	return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
