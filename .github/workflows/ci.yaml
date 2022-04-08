@@ -1,10 +1,6 @@
-name: CI-CD
+name: CI
 
 on:
-    push:
-        branches: ['master']
-        paths-ignore:
-            - '**.md'
     pull_request:
         branches: ['master']
         paths-ignore:
@@ -12,7 +8,7 @@ on:
     workflow_dispatch:
 
 jobs:
-    ci-cd:
+    ci:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v2
@@ -49,14 +45,6 @@ jobs:
                   verbose: true
             - name: build
               run: yarn build
-            - name: Upload build
-              uses: actions/upload-artifact@v2
-              with:
-                  name: build
-                  path: './build'
-            - name: zip assets
-              run: |
-                  zip -r build.zip ./build
             - name: deploy to staging
               id: staging
               run: |
@@ -67,17 +55,3 @@ jobs:
                   https://api.netlify.com/api/v1/sites/serverflow.netlify.app/deploys
               env:
                   NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-            - name: deploy to production
-              if: ${{ steps.staging.outcome != 'failed' }}
-              uses: nwtgck/actions-netlify@v1.2.3
-              with:
-                  publish-dir: './build'
-                  production-branch: 'master'
-                  github-token: ${{ secrets.GITHUB_TOKEN }}
-                  deploy-message: '${{ github.event.head_commit.message }}'
-                  enable-pull-request-comment: false
-                  enable-commit-comment: true
-              env:
-                  NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-                  NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-              timeout-minutes: 20
