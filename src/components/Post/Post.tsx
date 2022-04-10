@@ -26,7 +26,8 @@ const Post = ({
 	tags,
 	comments,
 }: localPostInterface) => {
-	const { user, votePost, sweetAlert, deletePost } = useContext(AppContext);
+	const { user, votePost, sweetAlertWarning, deletePost } =
+		useContext(AppContext);
 	const { pathname } = useLocation();
 	const renderedOnSinglePage = pathname !== '/questions';
 	const navigate = useNavigate();
@@ -36,7 +37,7 @@ const Post = ({
 				<TiArrowSortedUp
 					onClick={() => {
 						if (user) {
-							votePost(id, true);
+							votePost(id, +1);
 						} else {
 							navigate('/login');
 						}
@@ -46,7 +47,7 @@ const Post = ({
 				<TiArrowSortedDown
 					onClick={() => {
 						if (user) {
-							votePost(id, false);
+							votePost(id, -1);
 						} else {
 							navigate('/login');
 						}
@@ -83,7 +84,7 @@ const Post = ({
 						{user?.email === authorEmail && (
 							<RiDeleteBinFill
 								onClick={() =>
-									sweetAlert({
+									sweetAlertWarning({
 										id,
 										title: 'Are you sure?',
 										text: "You won't be able to revert this!",
@@ -97,7 +98,10 @@ const Post = ({
 											'Your file has been deleted.',
 											'success',
 										],
-										onConfirm: deletePost,
+										onConfirm: deletePost.bind(
+											id,
+											pathname
+										),
 									})
 								}
 							/>

@@ -58,6 +58,7 @@ const AddPost = () => {
 			content,
 			votes: 0,
 			tags: chosenTags,
+			comments: null,
 		};
 		addPost(data);
 		navigate('/questions', { replace: true });

@@ -9,8 +9,15 @@ const SingleComment = ({
 	authorEmail,
 	content,
 	votes,
-}: commentInterface) => {
-	const { user, votePost } = useContext(AppContext);
+	index,
+}: {
+	id: string;
+	authorEmail: string;
+	content: string;
+	votes: number;
+	index: number;
+}) => {
+	const { user, voteComment } = useContext(AppContext);
 	const navigate = useNavigate();
 	return (
 		<div className='comment-card'>
@@ -18,7 +25,7 @@ const SingleComment = ({
 				<TiArrowSortedUp
 					onClick={() => {
 						if (user) {
-							votePost(id, true);
+							voteComment(id, +1, index);
 						} else {
 							navigate('/login');
 						}
@@ -28,7 +35,7 @@ const SingleComment = ({
 				<TiArrowSortedDown
 					onClick={() => {
 						if (user) {
-							votePost(id, false);
+							voteComment(id, -1, index);
 						} else {
 							navigate('/login');
 						}

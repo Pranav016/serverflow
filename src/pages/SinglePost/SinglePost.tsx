@@ -14,7 +14,8 @@ import SingleComment from '../../components/SingleComment/SingleComment';
 import InputField from '../../components/InputField/InputField';
 
 const SinglePost = () => {
-	const { user, posts, addComment, addFirstComment } = useContext(AppContext);
+	const { user, posts, addComment } = useContext(AppContext);
+	// const { user, posts, addComment, addFirstComment } = useContext(AppContext);
 	const [solution, setSolution] = useState<string>('');
 	const [filteredPost, setFilteredPost] = useState<postInterface[]>([]);
 	const navigate = useNavigate();
@@ -49,7 +50,8 @@ const SinglePost = () => {
 		if (filteredPost[0]?.data?.comments?.length) {
 			addComment(filteredPost[0]?.id, newComment);
 		} else {
-			addFirstComment(filteredPost[0]?.id, newComment);
+			addComment(filteredPost[0]?.id, newComment);
+			// addFirstComment(filteredPost[0]?.id, newComment);
 		}
 		setSolution('');
 	};
@@ -80,8 +82,9 @@ const SinglePost = () => {
 			<div className='comments-console'>
 				{filteredPost[0]?.data?.comments
 					? filteredPost[0]?.data?.comments.map(
-							(comment: commentInterface) => (
+							(comment: commentInterface, index: number) => (
 								<SingleComment
+									index={index}
 									key={comment.id}
 									id={comment.id}
 									authorEmail={comment.authorEmail}
