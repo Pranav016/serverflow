@@ -136,7 +136,6 @@ export default function AppProvider({
 	}
 	useEffect(() => {
 		const unsubscribe = onAuthStateChanged(auth, (user: User | null) => {
-			// console.log(user);
 			setUser(user);
 		});
 		return () => {
@@ -161,7 +160,7 @@ export default function AppProvider({
 	function updatePostContent(id: string, content: string) {
 		const docRef = doc(db, 'posts', id);
 		updateDoc(docRef, { content }).catch((err) =>
-			console.log((err as Error).message)
+			toast.error((err as Error).message)
 		);
 	}
 	function votePost(id: string, vote: boolean) {
@@ -186,7 +185,6 @@ export default function AppProvider({
 		const docRef = doc(db, 'posts', id);
 		const reqPost = posts.filter((post) => post.id === id);
 		const updatedPost = { ...reqPost[0].data, comments: [comment] };
-		console.log(updatedPost);
 		setDoc(docRef, updatedPost)
 			.then(() => toast.success('Added Comment!'))
 			.catch((err) => toast.error((err as Error).message));

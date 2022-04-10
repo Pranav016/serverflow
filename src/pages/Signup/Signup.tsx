@@ -34,8 +34,6 @@ const Signup = () => {
 			return;
 		}
 		try {
-			console.log(email, password);
-
 			await signup(email, password);
 			navigate('/dashboard', { replace: true });
 		} catch (err) {
