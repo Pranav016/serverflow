@@ -1,21 +1,12 @@
 import React, { useContext } from 'react';
-import { AppContext, commentInterface } from '../../context/AppContext';
+import { AppContext } from '../../context/AppContext';
 import { TiArrowSortedUp, TiArrowSortedDown } from 'react-icons/ti';
 import './Post.css';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import { Chip } from '@mui/material';
 import { RiDeleteBinFill } from 'react-icons/ri';
-
-export interface localPostInterface {
-	id: string;
-	authorEmail: string;
-	heading: string;
-	content: string;
-	votes: number;
-	tags: string[];
-	comments?: commentInterface[];
-}
+import { localPostInterface } from '../../database';
 
 const Post = ({
 	id,

@@ -2,11 +2,12 @@ import React, { useRef, useState } from 'react';
 import { useContext } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import toast from 'react-hot-toast';
-import { AppContext, postDataInterface } from '../../context/AppContext';
+import { AppContext } from '../../context/AppContext';
 import tags from '../../lib/tags';
 import TagsBar from '../../components/TagsBar/TagsBar';
 import { useNavigate } from 'react-router-dom';
 import './AddPost.css';
+import { postDataInterface } from '../../database';
 
 const AddPost = () => {
 	const { user, addPost } = useContext(AppContext);

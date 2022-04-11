@@ -1,12 +1,7 @@
 import React from 'react';
 import Footer from '../../components/Footer/Footer';
 import Hero from '../../components/Hero/Hero';
-
-interface HeroDataInterface {
-	imgPath: string[];
-	headings: string[];
-	content: string[];
-}
+import { HeroDataInterface } from '../../database';
 
 const Home: React.FC = () => {
 	const data: HeroDataInterface = {

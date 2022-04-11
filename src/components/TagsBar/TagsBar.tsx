@@ -1,16 +1,8 @@
 import { Chip } from '@mui/material';
 import React from 'react';
 import { Button } from 'react-bootstrap';
+import { TagsBarInterface } from '../../database';
 import './TagsBar.css';
-
-export interface TagsBarInterface {
-	chosenTags: string[];
-	notChosenTags: string[];
-	handleDeleteTag: (tag: string) => void;
-	handleClickTag: (tag: string) => void;
-	clearTagFilters: () => void;
-	text: string;
-}
 
 const TagsBar = ({
 	chosenTags,

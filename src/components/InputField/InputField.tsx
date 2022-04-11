@@ -1,15 +1,8 @@
 import { TextField } from '@mui/material';
 import React from 'react';
 import { Button } from 'react-bootstrap';
+import { inputFieldProps } from '../../database';
 import './InputField.css';
-
-export interface inputFieldProps {
-	inputText: string;
-	label: string;
-	buttonText: string;
-	handleClick: () => void;
-	setInputText: React.Dispatch<React.SetStateAction<string>>;
-}
 
 const InputField = ({
 	inputText,

@@ -7,7 +7,6 @@ import {
 	signInWithPopup,
 	signOut,
 	User,
-	UserCredential,
 } from 'firebase/auth';
 import {
 	addDoc,
@@ -26,72 +25,15 @@ import React, { createContext, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { postCollectionRef } from '../config/firebase.collections';
 import auth, { db } from '../config/firebaseConfig';
-import Swal, { SweetAlertIcon } from 'sweetalert2';
+import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
-
-// typescript interfaces
-export interface commentInterface {
-	id: string;
-	authorEmail: string;
-	content: string;
-	votes: number;
-}
-
-export interface postInterface {
-	id: string;
-	data: DocumentData;
-}
-
-export interface postDataInterface {
-	authorEmail: string;
-	heading: string;
-	content: string;
-	votes: number;
-	tags: string[];
-	comments: null | commentInterface[];
-}
-
-interface sweetAlertWarningInterface {
-	id: string;
-	title: string;
-	text: string;
-	icon: SweetAlertIcon;
-	showCancelButton: boolean;
-	confirmButtonColor: string;
-	cancelButtonColor: string;
-	confirmButtonText: string;
-	msg: string[];
-	onConfirm: (id: string) => void;
-}
-
-interface contextInterface {
-	user: User | null;
-	posts: postInterface[];
-	signup: (email: string, password: string) => Promise<UserCredential>;
-	login: (email: string, password: string) => Promise<UserCredential>;
-	logout: () => Promise<void>;
-	googleSignIn: () => Promise<UserCredential>;
-	resetPassword: (email: string) => Promise<void>;
-	getPosts: () => void;
-	addPost: (data: postDataInterface) => void;
-	updatePostContent: (id: string, content: string) => void;
-	// addFirstComment: (id: string, comment: commentInterface) => void;
-	addComment: (id: string, comment: commentInterface) => void;
-	deletePost: (id: string, pathname: string) => void;
-	setPosts: React.Dispatch<React.SetStateAction<postInterface[]>>;
-	votePost: (id: string, vote: number) => void;
-	// voteComment: (id: string, vote: number, index: number) => void;
-	sweetAlertWarning: ({
-		title,
-		text,
-		icon,
-		showCancelButton,
-		confirmButtonColor,
-		cancelButtonColor,
-		confirmButtonText,
-		msg,
-	}: sweetAlertWarningInterface) => void;
-}
+import {
+	commentInterface,
+	contextInterface,
+	postDataInterface,
+	postInterface,
+	sweetAlertWarningInterface,
+} from '../database';
 
 export const AppContext = createContext({} as contextInterface);
 

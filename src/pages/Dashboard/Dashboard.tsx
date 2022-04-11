@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Post from '../../components/Post/Post';
-import { AppContext, postInterface } from '../../context/AppContext';
+import { AppContext } from '../../context/AppContext';
+import { postInterface } from '../../database';
 import './Dashboard.css';
 
 const Dashboard = () => {

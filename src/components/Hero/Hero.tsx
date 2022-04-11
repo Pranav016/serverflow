@@ -1,12 +1,6 @@
 import React from 'react';
+import { HeroPropInterface } from '../../database';
 import './Hero.css';
-
-interface HeroPropInterface {
-	alternate?: boolean;
-	imgPath: string;
-	heading: string;
-	content: string;
-}
 
 const Hero = ({ alternate, imgPath, heading, content }: HeroPropInterface) => {
 	return (

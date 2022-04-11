@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { TiArrowSortedDown, TiArrowSortedUp } from 'react-icons/ti';
 import { useNavigate } from 'react-router-dom';
-import { AppContext, commentInterface } from '../../context/AppContext';
+import { AppContext } from '../../context/AppContext';
 import './SingleComment.css';
 
 const SingleComment = ({
@@ -9,7 +9,6 @@ const SingleComment = ({
 	authorEmail,
 	content,
 	votes,
-	index,
 }: {
 	id: string;
 	authorEmail: string;
@@ -17,7 +16,7 @@ const SingleComment = ({
 	votes: number;
 	index: number;
 }) => {
-	const { user, voteComment } = useContext(AppContext);
+	const { user, votePost } = useContext(AppContext);
 	const navigate = useNavigate();
 	return (
 		<div className='comment-card'>
@@ -25,7 +24,7 @@ const SingleComment = ({
 				<TiArrowSortedUp
 					onClick={() => {
 						if (user) {
-							voteComment(id, +1, index);
+							votePost(id, +1);
 						} else {
 							navigate('/login');
 						}
@@ -35,7 +34,7 @@ const SingleComment = ({
 				<TiArrowSortedDown
 					onClick={() => {
 						if (user) {
-							voteComment(id, -1, index);
+							votePost(id, -1);
 						} else {
 							navigate('/login');
 						}

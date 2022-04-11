@@ -3,9 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import Post from '../../components/Post/Post';
 import InputField from '../../components/InputField/InputField';
 import TagsBar from '../../components/TagsBar/TagsBar';
-import { AppContext, postInterface } from '../../context/AppContext';
+import { AppContext } from '../../context/AppContext';
 import tags from '../../lib/tags';
 import './Questions.css';
+import { postInterface } from '../../database';
 
 const Questions: React.FC = () => {
 	const { posts } = useContext(AppContext);

@@ -3,15 +3,12 @@ import { Button } from 'react-bootstrap';
 import toast from 'react-hot-toast';
 import { useNavigate, useParams } from 'react-router-dom';
 import Post from '../../components/Post/Post';
-import {
-	AppContext,
-	commentInterface,
-	postInterface,
-} from '../../context/AppContext';
+import { AppContext } from '../../context/AppContext';
 import { v4 as uuidv4 } from 'uuid';
 import './SinglePost.css';
 import SingleComment from '../../components/SingleComment/SingleComment';
 import InputField from '../../components/InputField/InputField';
+import { commentInterface, postInterface } from '../../database';
 
 const SinglePost = () => {
 	const { user, posts, addComment } = useContext(AppContext);
