@@ -67,14 +67,14 @@ interface contextInterface {
 	}: sweetAlertWarningInterface) => void;
 }
 
-export interface HeroPropInterface {
+interface HeroPropInterface {
 	alternate?: boolean;
 	imgPath: string;
 	heading: string;
 	content: string;
 }
 
-export interface inputFieldProps {
+interface inputFieldProps {
 	inputText: string;
 	label: string;
 	buttonText: string;
@@ -82,7 +82,7 @@ export interface inputFieldProps {
 	setInputText: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export interface localPostInterface {
+interface localPostInterface {
 	id: string;
 	authorEmail: string;
 	heading: string;
@@ -92,7 +92,7 @@ export interface localPostInterface {
 	comments?: commentInterface[];
 }
 
-export interface TagsBarInterface {
+interface TagsBarInterface {
 	chosenTags: string[];
 	notChosenTags: string[];
 	handleDeleteTag: (tag: string) => void;
@@ -101,7 +101,7 @@ export interface TagsBarInterface {
 	text: string;
 }
 
-export interface HeroDataInterface {
+interface HeroDataInterface {
 	imgPath: string[];
 	headings: string[];
 	content: string[];

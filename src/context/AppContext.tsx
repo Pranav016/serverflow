@@ -102,14 +102,14 @@ export default function AppProvider({
 			.then(() => toast.success('Posted successfully!'))
 			.catch((err) => toast.error(err.message));
 	}
-	function updatePostContent(id: string, content: string) {
-		const docRef = doc(db, 'posts', id);
+	function updatePostContent(postId: string, content: string) {
+		const docRef = doc(db, 'posts', postId);
 		updateDoc(docRef, { content }).catch((err) =>
 			toast.error((err as Error).message)
 		);
 	}
-	function votePost(id: string, vote: number) {
-		const docRef = doc(db, 'posts', id);
+	function votePost(postId: string, vote: number) {
+		const docRef = doc(db, 'posts', postId);
 		updateDoc(docRef, { votes: increment(vote) }).catch((err) =>
 			toast.error((err as Error).message)
 		);
@@ -120,16 +120,14 @@ export default function AppProvider({
 	// 		(err) => console.log((err as Error).message)
 	// 	);
 	// }
-	function addComment(id: string, comment: commentInterface) {
-		const docRef = doc(db, 'posts', id);
+	function addComment(postId: string, comment: commentInterface) {
+		const docRef = doc(db, 'posts', postId);
 		updateDoc(docRef, { comments: arrayUnion(comment) })
 			.then(() => toast.success('Added Comment!'))
 			.catch((err) => toast.error((err as Error).message));
 	}
-	function deletePost(pathname: string, id: string) {
-		const docRef = doc(db, 'posts', id);
-		console.log(id, pathname);
-
+	function deletePost(pathname: string, postId: string) {
+		const docRef = doc(db, 'posts', postId);
 		deleteDoc(docRef)
 			.then(() => {
 				navigate(pathname);
