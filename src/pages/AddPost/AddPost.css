@@ -8,12 +8,13 @@
 }
 
 .addPost-form form {
-	width: 60vw;
-	padding: 2vh;
+	width: 90%;
+	padding: 1vw;
 	border: 2px solid grey;
 	border-radius: 15px;
 	display: flex;
 	flex-direction: column;
+	justify-content: center;
 	align-items: center;
 }
 
