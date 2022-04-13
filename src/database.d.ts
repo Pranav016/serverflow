@@ -3,10 +3,6 @@ import { DocumentData } from 'firebase/firestore';
 import React from 'react';
 import { SweetAlertIcon } from 'sweetalert2';
 
-// interface commentInterface {
-// 	[key: string]: commentInterface;
-// }
-
 interface commentInterface {
 	id: string;
 	authorEmail: string;
@@ -27,17 +23,30 @@ interface postDataInterface {
 	tags: string[];
 }
 
-interface sweetAlertWarningInterface {
-	id: string;
-	title: string;
-	text: string;
-	icon: SweetAlertIcon;
-	showCancelButton: boolean;
-	confirmButtonColor: string;
-	cancelButtonColor: string;
-	confirmButtonText: string;
-	msg: string[];
-	onConfirm: (id: string) => void;
+interface sweetAlertPostWarningInterface {
+	postId: string;
+	pathname: string;
+	title?: string;
+	text?: string;
+	icon?: SweetAlertIcon;
+	showCancelButton?: boolean;
+	confirmButtonColor?: string;
+	cancelButtonColor?: string;
+	confirmButtonText?: string;
+	msg?: string[];
+}
+
+interface sweetAlertCommentWarningInterface {
+	postId: string;
+	commentId: string;
+	title?: string;
+	text?: string;
+	icon?: SweetAlertIcon;
+	showCancelButton?: boolean;
+	confirmButtonColor?: string;
+	cancelButtonColor?: string;
+	confirmButtonText?: string;
+	msg?: string[];
 }
 
 interface contextInterface {
@@ -50,13 +59,16 @@ interface contextInterface {
 	resetPassword: (email: string) => Promise<void>;
 	getPosts: () => void;
 	addPost: (data: postDataInterface) => void;
-	updatePostContent: (id: string, content: string) => void;
-	addComment: (id: string, comment: commentInterface) => void;
-	deletePost: (id: string, pathname: string) => void;
+	updatePostContent: (postId: string, content: string) => void;
+	addComment: (postId: string, comment: commentInterface) => void;
+	deletePost: ({ postId: string, pathname: string }) => void;
 	setPosts: React.Dispatch<React.SetStateAction<postInterface[]>>;
-	votePost: (id: string, vote: number) => void;
+	votePost: (postId: string, vote: number) => void;
 	voteComment: (commentId: string, postId: string, vote: number) => void;
-	sweetAlertWarning: ({
+	deleteSpecificComment: (commentId: string, postId: string) => void;
+	sweetAlertPostWarning: ({
+		postId,
+		pathname,
 		title,
 		text,
 		icon,
@@ -65,7 +77,19 @@ interface contextInterface {
 		cancelButtonColor,
 		confirmButtonText,
 		msg,
-	}: sweetAlertWarningInterface) => void;
+	}: sweetAlertPostWarningInterface) => void;
+	sweetAlertCommentWarning: ({
+		postId,
+		commentId,
+		title,
+		text,
+		icon,
+		showCancelButton,
+		confirmButtonColor,
+		cancelButtonColor,
+		confirmButtonText,
+		msg,
+	}: sweetAlertCommentWarningInterface) => void;
 }
 
 interface HeroPropInterface {
@@ -90,7 +114,6 @@ interface localPostInterface {
 	content: string;
 	votes: number;
 	tags: string[];
-	comments?: commentInterface[];
 }
 
 interface TagsBarInterface {

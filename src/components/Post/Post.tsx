@@ -15,10 +15,8 @@ const Post = ({
 	content,
 	votes,
 	tags,
-	comments,
 }: localPostInterface) => {
-	const { user, votePost, sweetAlertWarning, deletePost } =
-		useContext(AppContext);
+	const { user, votePost, sweetAlertPostWarning } = useContext(AppContext);
 	const { pathname } = useLocation();
 	const renderedOnSinglePage = pathname !== '/questions';
 	const navigate = useNavigate();
@@ -75,24 +73,11 @@ const Post = ({
 						{user?.email === authorEmail && (
 							<RiDeleteBinFill
 								onClick={() =>
-									sweetAlertWarning({
-										id,
-										title: 'Are you sure?',
-										text: "You won't be able to revert this!",
-										icon: 'warning',
-										showCancelButton: true,
-										confirmButtonColor: '#3085d6',
-										cancelButtonColor: '#d33',
-										confirmButtonText: 'Yes, delete it!',
-										msg: [
-											'Deleted!',
-											'Your file has been deleted.',
-											'success',
-										],
-										onConfirm: deletePost.bind(
-											id,
-											pathname
-										),
+									sweetAlertPostWarning({
+										postId: id,
+										pathname: renderedOnSinglePage
+											? 'questions'
+											: pathname,
 									})
 								}
 							/>

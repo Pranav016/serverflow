@@ -11,6 +11,7 @@ import {
 import {
 	addDoc,
 	deleteDoc,
+	deleteField,
 	doc,
 	DocumentData,
 	getDocs,
@@ -31,7 +32,8 @@ import {
 	contextInterface,
 	postDataInterface,
 	postInterface,
-	sweetAlertWarningInterface,
+	sweetAlertCommentWarningInterface,
+	sweetAlertPostWarningInterface,
 } from '../database';
 
 export const AppContext = createContext({} as contextInterface);
@@ -113,13 +115,20 @@ export default function AppProvider({
 			toast.error((err as Error).message)
 		);
 	}
-	function deletePost(pathname: string, postId: string) {
+	function deletePost({
+		postId,
+		pathname,
+	}: {
+		postId: string;
+		pathname: string;
+	}) {
 		const docRef = doc(db, 'posts', postId);
 		deleteDoc(docRef)
 			.then(() => {
 				navigate(pathname);
 			})
 			.catch((err) => toast.error((err as Error).message));
+		deleteAllComments(postId);
 	}
 
 	// comments collection functionalities
@@ -133,21 +142,31 @@ export default function AppProvider({
 		const docRef = doc(db, 'comments', postId);
 		updateDoc(docRef, {
 			[`${commentId}.votes`]: increment(vote),
-		}).catch((err) => console.log((err as Error).message));
+		}).catch((err) => toast.error((err as Error).message));
+	}
+	function deleteAllComments(postId: string) {
+		const docRef = doc(db, `comments`, postId);
+		deleteDoc(docRef).catch((err) => toast.error((err as Error).message));
+	}
+	function deleteSpecificComment(postId: string, commentId: string) {
+		const docRef = doc(db, `comments`, postId);
+		updateDoc(docRef, { [commentId]: deleteField() }).catch((err) =>
+			toast.error((err as Error).message)
+		);
 	}
 
-	function sweetAlertWarning({
-		id,
-		title,
-		text,
-		icon,
-		showCancelButton,
-		confirmButtonColor,
-		cancelButtonColor,
-		confirmButtonText,
-		msg,
-		onConfirm,
-	}: sweetAlertWarningInterface) {
+	function sweetAlertPostWarning({
+		postId,
+		pathname,
+		title = 'Are you sure?',
+		text = "You won't be able to revert this!",
+		icon = 'warning',
+		showCancelButton = true,
+		confirmButtonColor = '#3085d6',
+		cancelButtonColor = '#d33',
+		confirmButtonText = 'Yes, delete it!',
+		msg = ['Deleted!', 'Your file has been deleted.', 'success'],
+	}: sweetAlertPostWarningInterface) {
 		Swal.fire({
 			title,
 			text,
@@ -160,7 +179,40 @@ export default function AppProvider({
 			.then((result) => {
 				if (result?.isConfirmed) {
 					try {
-						onConfirm(id);
+						deletePost({ postId, pathname });
+						Swal.fire(...msg);
+					} catch (err) {
+						toast.error((err as Error).message);
+					}
+				}
+			})
+			.catch((err) => toast.error(err.message));
+	}
+	function sweetAlertCommentWarning({
+		postId,
+		commentId,
+		title = 'Are you sure?',
+		text = "You won't be able to revert this!",
+		icon = 'warning',
+		showCancelButton = true,
+		confirmButtonColor = '#3085d6',
+		cancelButtonColor = '#d33',
+		confirmButtonText = 'Yes, delete it!',
+		msg = ['Deleted!', 'Your file has been deleted.', 'success'],
+	}: sweetAlertCommentWarningInterface) {
+		Swal.fire({
+			title,
+			text,
+			icon,
+			showCancelButton,
+			confirmButtonColor,
+			cancelButtonColor,
+			confirmButtonText,
+		})
+			.then((result) => {
+				if (result?.isConfirmed) {
+					try {
+						deleteSpecificComment(postId, commentId);
 						Swal.fire(...msg);
 					} catch (err) {
 						toast.error((err as Error).message);
@@ -186,7 +238,9 @@ export default function AppProvider({
 		setPosts,
 		votePost,
 		voteComment,
-		sweetAlertWarning,
+		deleteSpecificComment,
+		sweetAlertPostWarning,
+		sweetAlertCommentWarning,
 	};
 
 	return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
