@@ -3,7 +3,10 @@ import { DocumentData } from 'firebase/firestore';
 import React from 'react';
 import { SweetAlertIcon } from 'sweetalert2';
 
-// typescript interfaces
+// interface commentInterface {
+// 	[key: string]: commentInterface;
+// }
+
 interface commentInterface {
 	id: string;
 	authorEmail: string;
@@ -22,7 +25,6 @@ interface postDataInterface {
 	content: string;
 	votes: number;
 	tags: string[];
-	comments: null | commentInterface[];
 }
 
 interface sweetAlertWarningInterface {
@@ -49,12 +51,11 @@ interface contextInterface {
 	getPosts: () => void;
 	addPost: (data: postDataInterface) => void;
 	updatePostContent: (id: string, content: string) => void;
-	// addFirstComment: (id: string, comment: commentInterface) => void;
 	addComment: (id: string, comment: commentInterface) => void;
 	deletePost: (id: string, pathname: string) => void;
 	setPosts: React.Dispatch<React.SetStateAction<postInterface[]>>;
 	votePost: (id: string, vote: number) => void;
-	// voteComment: (id: string, vote: number, index: number) => void;
+	voteComment: (commentId: string, postId: string, vote: number) => void;
 	sweetAlertWarning: ({
 		title,
 		text,
