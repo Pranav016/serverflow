@@ -25,9 +25,6 @@ const SinglePost = () => {
 	const [filteredPost, setFilteredPost] = useState<postInterface[]>([]);
 	const [comments, setComments] = useState<commentInterface[]>();
 
-	const handleBack = () => {
-		navigate(-1);
-	};
 	useEffect(() => {
 		const unsubscribe = onSnapshot(
 			doc(db, 'comments', postId as string),
@@ -37,7 +34,7 @@ const SinglePost = () => {
 				for (const key in comments) {
 					arr.push(comments[key]);
 				}
-				setComments(arr);
+				setComments(sortComments(arr));
 			}
 		);
 		return () => {
@@ -53,6 +50,16 @@ const SinglePost = () => {
 		};
 	}, [posts, postId]);
 
+	function sortComments(arr: commentInterface[]) {
+		arr?.sort(
+			(a: commentInterface, b: commentInterface): number =>
+				b.votes - a.votes
+		);
+		return arr;
+	}
+	const handleBack = () => {
+		navigate(-1);
+	};
 	const handleClick = () => {
 		if (!user) {
 			navigate('/login');
@@ -70,10 +77,6 @@ const SinglePost = () => {
 			votes: 0,
 		};
 		addComment(filteredPost[0]?.id, newComment);
-		// if (comments?.length) {
-		// } else {
-		// 	addFirstComment(filteredPost[0]?.id, newComment);
-		// }
 		setSolution('');
 	};
 
