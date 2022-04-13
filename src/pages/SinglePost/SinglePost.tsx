@@ -9,18 +9,43 @@ import './SinglePost.css';
 import SingleComment from '../../components/SingleComment/SingleComment';
 import InputField from '../../components/InputField/InputField';
 import { commentInterface, postInterface } from '../../database';
+import { db } from '../../config/firebaseConfig';
+import {
+	doc,
+	DocumentData,
+	onSnapshot,
+	DocumentSnapshot,
+} from 'firebase/firestore';
 
 const SinglePost = () => {
 	const { user, posts, addComment } = useContext(AppContext);
-	// const { user, posts, addComment, addFirstComment } = useContext(AppContext);
+	const { postId } = useParams();
+	const navigate = useNavigate();
 	const [solution, setSolution] = useState<string>('');
 	const [filteredPost, setFilteredPost] = useState<postInterface[]>([]);
-	const navigate = useNavigate();
-	const { postId } = useParams();
+	const [comments, setComments] = useState<commentInterface[]>();
 
 	const handleBack = () => {
 		navigate(-1);
 	};
+	useEffect(() => {
+		const unsubscribe = onSnapshot(
+			doc(db, 'comments', postId as string),
+			(snapshot: DocumentSnapshot<DocumentData>) => {
+				const comments = snapshot.data();
+				const arr = [];
+				for (const key in comments) {
+					arr.push(comments[key]);
+				}
+				setComments(arr);
+			}
+		);
+		return () => {
+			unsubscribe();
+			setComments([]);
+		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 	useEffect(() => {
 		setFilteredPost(posts.filter((post) => post.id === postId));
 		return () => {
@@ -44,12 +69,11 @@ const SinglePost = () => {
 			content: solution,
 			votes: 0,
 		};
-		if (filteredPost[0]?.data?.comments?.length) {
-			addComment(filteredPost[0]?.id, newComment);
-		} else {
-			addComment(filteredPost[0]?.id, newComment);
-			// addFirstComment(filteredPost[0]?.id, newComment);
-		}
+		addComment(filteredPost[0]?.id, newComment);
+		// if (comments?.length) {
+		// } else {
+		// 	addFirstComment(filteredPost[0]?.id, newComment);
+		// }
 		setSolution('');
 	};
 
@@ -77,19 +101,17 @@ const SinglePost = () => {
 				/>
 			</div>
 			<div className='comments-console'>
-				{filteredPost[0]?.data?.comments
-					? filteredPost[0]?.data?.comments.map(
-							(comment: commentInterface, index: number) => (
-								<SingleComment
-									index={index}
-									key={comment.id}
-									id={comment.id}
-									authorEmail={comment.authorEmail}
-									content={comment.content}
-									votes={comment.votes}
-								/>
-							)
-					  )
+				{comments?.length
+					? comments?.map((comment: commentInterface) => (
+							<SingleComment
+								key={comment.id}
+								postId={postId as string}
+								commentId={comment.id}
+								authorEmail={comment.authorEmail}
+								content={comment.content}
+								votes={comment.votes}
+							/>
+					  ))
 					: 'No solutions found!'}
 			</div>
 		</div>

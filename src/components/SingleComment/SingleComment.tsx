@@ -5,18 +5,19 @@ import { AppContext } from '../../context/AppContext';
 import './SingleComment.css';
 
 const SingleComment = ({
-	id,
+	commentId,
+	postId,
 	authorEmail,
 	content,
 	votes,
 }: {
-	id: string;
+	commentId: string;
+	postId: string;
 	authorEmail: string;
 	content: string;
 	votes: number;
-	index: number;
 }) => {
-	const { user, votePost } = useContext(AppContext);
+	const { user, voteComment } = useContext(AppContext);
 	const navigate = useNavigate();
 	return (
 		<div className='comment-card'>
@@ -24,7 +25,7 @@ const SingleComment = ({
 				<TiArrowSortedUp
 					onClick={() => {
 						if (user) {
-							votePost(id, +1);
+							voteComment(commentId, postId, +1);
 						} else {
 							navigate('/login');
 						}
@@ -34,7 +35,7 @@ const SingleComment = ({
 				<TiArrowSortedDown
 					onClick={() => {
 						if (user) {
-							votePost(id, -1);
+							voteComment(commentId, postId, -1);
 						} else {
 							navigate('/login');
 						}
