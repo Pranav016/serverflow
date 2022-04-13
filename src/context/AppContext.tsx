@@ -10,7 +10,6 @@ import {
 } from 'firebase/auth';
 import {
 	addDoc,
-	arrayUnion,
 	deleteDoc,
 	doc,
 	DocumentData,
@@ -18,7 +17,7 @@ import {
 	increment,
 	onSnapshot,
 	QuerySnapshot,
-	// setDoc,
+	setDoc,
 	updateDoc,
 } from 'firebase/firestore';
 import React, { createContext, useEffect, useState } from 'react';
@@ -88,7 +87,7 @@ export default function AppProvider({
 		};
 	}, []);
 
-	// post database functions
+	// posts collection functionalities
 	function getPosts() {
 		getDocs(postCollectionRef)
 			.then((res) =>
@@ -114,18 +113,6 @@ export default function AppProvider({
 			toast.error((err as Error).message)
 		);
 	}
-	// function voteComment(id: string, vote: number, index: number) {
-	// 	const docRef = doc(db, 'posts', id);
-	// 	updateDoc(docRef, {[`comments[${index}].votes: ${increment(vote)}`]}).catch(
-	// 		(err) => console.log((err as Error).message)
-	// 	);
-	// }
-	function addComment(postId: string, comment: commentInterface) {
-		const docRef = doc(db, 'posts', postId);
-		updateDoc(docRef, { comments: arrayUnion(comment) })
-			.then(() => toast.success('Added Comment!'))
-			.catch((err) => toast.error((err as Error).message));
-	}
 	function deletePost(pathname: string, postId: string) {
 		const docRef = doc(db, 'posts', postId);
 		deleteDoc(docRef)
@@ -133,6 +120,20 @@ export default function AppProvider({
 				navigate(pathname);
 			})
 			.catch((err) => toast.error((err as Error).message));
+	}
+
+	// comments collection functionalities
+	function addComment(postId: string, comment: commentInterface) {
+		const docRef = doc(db, `comments/${postId}`);
+		setDoc(docRef, { [comment.id]: comment }, { merge: true })
+			.then(() => toast.success('Added Comment!'))
+			.catch((err) => toast.error((err as Error).message));
+	}
+	function voteComment(commentId: string, postId: string, vote: number) {
+		const docRef = doc(db, 'comments', postId);
+		updateDoc(docRef, {
+			[`${commentId}.votes`]: increment(vote),
+		}).catch((err) => console.log((err as Error).message));
 	}
 
 	function sweetAlertWarning({
@@ -180,12 +181,11 @@ export default function AppProvider({
 		getPosts,
 		addPost,
 		updatePostContent,
-		// addFirstComment,
 		addComment,
 		deletePost,
 		setPosts,
 		votePost,
-		// voteComment,
+		voteComment,
 		sweetAlertWarning,
 	};
 
