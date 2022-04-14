@@ -5,7 +5,7 @@ import './Post.css';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import { Chip } from '@mui/material';
-import { RiDeleteBinFill } from 'react-icons/ri';
+import { RiDeleteBinFill, RiEditBoxFill } from 'react-icons/ri';
 import { localPostInterface } from '../../database';
 
 const Post = ({
@@ -71,16 +71,23 @@ const Post = ({
 					</div>
 					<div>
 						{user?.email === authorEmail && (
-							<RiDeleteBinFill
-								onClick={() =>
-									sweetAlertPostWarning({
-										postId: id,
-										pathname: renderedOnSinglePage
-											? 'questions'
-											: pathname,
-									})
-								}
-							/>
+							<>
+								<RiEditBoxFill
+									onClick={() =>
+										navigate(`/update-post/${id}`)
+									}
+								/>
+								<RiDeleteBinFill
+									onClick={() =>
+										sweetAlertPostWarning({
+											postId: id,
+											pathname: renderedOnSinglePage
+												? 'questions'
+												: pathname,
+										})
+									}
+								/>
+							</>
 						)}
 					</div>
 				</div>

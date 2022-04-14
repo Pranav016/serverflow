@@ -15,6 +15,7 @@ import Login from './pages/Login/Login';
 import Questions from './pages/Questions/Questions';
 import Signup from './pages/Signup/Signup';
 import SinglePost from './pages/SinglePost/SinglePost';
+import UpdatePost from './pages/UpdatePost/UpdatePost';
 
 function App() {
 	return (
@@ -55,6 +56,14 @@ function App() {
 						element={
 							<UserLoginRequired>
 								<AddPost />
+							</UserLoginRequired>
+						}
+					/>
+					<Route
+						path='update-post/:postId'
+						element={
+							<UserLoginRequired>
+								<UpdatePost />
 							</UserLoginRequired>
 						}
 					/>
