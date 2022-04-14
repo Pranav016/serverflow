@@ -1,8 +1,9 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import InputField, { inputFieldProps } from '../InputField';
+import InputField from '../InputField';
 import { BrowserRouter } from 'react-router-dom';
 import '@testing-library/jest-dom';
+import { inputFieldProps } from '../../../database';
 
 const MockedInputField = ({
 	inputText,
