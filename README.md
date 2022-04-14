@@ -30,6 +30,36 @@ This project follows [Conventional Commits](https://www.conventionalcommits.org/
 
 <hr />
 
+## Application Features
+
+-   Questions-console to display all questions.
+-   Signup and Login functionalities via Email-Password and Google Authentication via Google APIs.
+-   Solution to 'Forgot Password' via email for resetting the password.
+-   Protected routes that only authorized users can access.
+-   Searching and posts filtering via tags functionalities.
+-   User dashboard to show user information and their posts.
+-   Adding a post with heading, content and technology tags.
+-   Updating a post by the author.
+-   Upvoting or downvoting a post based on relevance.
+-   Deletion of a post by the author.
+-   Adding solutions under a post/question.
+-   Upvoting or downvoting solutions based on relevance.
+-   Solution with highest upvotes moves up. (Sorted solutions)
+-   Single click clear filter functionality.
+-   Notification toasts throughout the application.
+
+<hr />
+
+## Features currently being worked on:
+
+-   [x] Post filtering by tags and search
+-   [ ] Markdown parser/ Integrating CKEditor
+-   [x] Update question/post by author
+-   [ ] Delete comment/solution by author
+-   [ ] Reset Password in user dashboard
+
+<hr />
+
 ## Technology Stack 🛠️
 
 ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E) ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white) ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
