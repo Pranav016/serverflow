@@ -2,6 +2,7 @@ import React from 'react';
 import Footer from '../../components/Footer/Footer';
 import Hero from '../../components/Hero/Hero';
 import { HeroDataInterface } from '../../database';
+import './Home.css';
 
 const Home: React.FC = () => {
 	const data: HeroDataInterface = {
@@ -19,7 +20,7 @@ const Home: React.FC = () => {
 		],
 	};
 	return (
-		<>
+		<div className='home'>
 			<Hero
 				imgPath={data.imgPath[0]}
 				heading={data.headings[0]}
@@ -32,7 +33,7 @@ const Home: React.FC = () => {
 				alternate={true}
 			/>
 			<Footer />
-		</>
+		</div>
 	);
 };
 
