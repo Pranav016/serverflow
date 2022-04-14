@@ -58,8 +58,17 @@ interface contextInterface {
 	googleSignIn: () => Promise<UserCredential>;
 	resetPassword: (email: string) => Promise<void>;
 	getPosts: () => void;
+	getPost: (
+		postId: string,
+		setPostData: React.Dispatch<
+			React.SetStateAction<DocumentData | undefined>
+		>
+	) => void;
 	addPost: (data: postDataInterface) => void;
-	updatePostContent: (postId: string, content: string) => void;
+	updatePost: (
+		postId: string,
+		data: { heading: string; content: string; tags: string[] }
+	) => void;
 	addComment: (postId: string, comment: commentInterface) => void;
 	deletePost: ({ postId: string, pathname: string }) => void;
 	setPosts: React.Dispatch<React.SetStateAction<postInterface[]>>;
@@ -132,10 +141,10 @@ interface HeroDataInterface {
 }
 
 interface PostFormProps {
-	heading: string;
-	content: string;
-	setHeading: React.Dispatch<React.SetStateAction<string>>;
-	setContent: React.Dispatch<React.SetStateAction<string>>;
+	head: string;
+	cont: string;
 	postId?: string;
+	taskText: string;
+	ctags: string[];
 	fn: (...args: any[]) => void;
 }
