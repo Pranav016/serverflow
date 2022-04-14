@@ -1,4 +1,13 @@
-form {
+.post-form {
+	height: 85vh;
+	width: 100vw;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.post-form form {
 	width: 90%;
 	padding: 1vw;
 	border: 2px solid grey;
@@ -9,15 +18,15 @@ form {
 	align-items: center;
 }
 
-.form-control {
+.post-form .form-control {
 	width: 50vw;
 }
 
-button {
+.post-form button {
 	margin-top: 3vh;
 }
 
-hr {
+.post-form hr {
 	width: inherit;
 	border: 2px solid black;
 }
