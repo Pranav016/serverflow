@@ -130,3 +130,12 @@ interface HeroDataInterface {
 	headings: string[];
 	content: string[];
 }
+
+interface PostFormProps {
+	heading: string;
+	content: string;
+	setHeading: React.Dispatch<React.SetStateAction<string>>;
+	setContent: React.Dispatch<React.SetStateAction<string>>;
+	postId?: string;
+	fn: (...args: any[]) => void;
+}

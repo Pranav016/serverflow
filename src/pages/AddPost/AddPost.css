@@ -6,27 +6,3 @@
 	justify-content: center;
 	align-items: center;
 }
-
-.addPost-form form {
-	width: 90%;
-	padding: 1vw;
-	border: 2px solid grey;
-	border-radius: 15px;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-}
-
-.addPost-form .form-control {
-	width: 50vw;
-}
-
-.addPost-form button {
-	margin-top: 3vh;
-}
-
-.addPost-form hr {
-	width: inherit;
-	border: 2px solid black;
-}
