@@ -14,6 +14,7 @@ import {
 	deleteField,
 	doc,
 	DocumentData,
+	getDoc,
 	getDocs,
 	increment,
 	onSnapshot,
@@ -98,22 +99,43 @@ export default function AppProvider({
 			.then((postsList) => setPosts(postsList))
 			.catch((err) => toast.error(err.message));
 	}
-	function addPost(post: postDataInterface) {
-		addDoc(postCollectionRef, post)
-			.then(() => toast.success('Posted successfully!'))
+	async function getPost(
+		postId: string,
+		setPostData: React.Dispatch<
+			React.SetStateAction<DocumentData | undefined>
+		>
+	) {
+		const docRef = doc(db, 'posts', postId);
+		getDoc(docRef)
+			.then((res) => res.data())
+			.then((data) => {
+				setPostData(data);
+			})
 			.catch((err) => toast.error(err.message));
 	}
-	function updatePostContent(postId: string, content: string) {
+	function addPost(post: postDataInterface) {
+		addDoc(postCollectionRef, post)
+			.then(() => toast.success('Post successfully added!'))
+			.catch((err) => toast.error(err.message));
+	}
+	function updatePost(
+		postId: string,
+		data: { heading: string; content: string; tags: string[] }
+	) {
 		const docRef = doc(db, 'posts', postId);
-		updateDoc(docRef, { content }).catch((err) =>
-			toast.error((err as Error).message)
-		);
+		updateDoc(docRef, {
+			heading: data?.heading,
+			content: data?.content,
+			tags: data?.tags,
+		})
+			.then(() => toast.success('Post successfully updated!'))
+			.catch((err) => toast.error((err as Error).message));
 	}
 	function votePost(postId: string, vote: number) {
 		const docRef = doc(db, 'posts', postId);
-		updateDoc(docRef, { votes: increment(vote) }).catch((err) =>
-			toast.error((err as Error).message)
-		);
+		updateDoc(docRef, { votes: increment(vote) })
+			.then(() => toast.success('Vote added!'))
+			.catch((err) => toast.error((err as Error).message));
 	}
 	function deletePost({
 		postId,
@@ -135,14 +157,16 @@ export default function AppProvider({
 	function addComment(postId: string, comment: commentInterface) {
 		const docRef = doc(db, `comments/${postId}`);
 		setDoc(docRef, { [comment.id]: comment }, { merge: true })
-			.then(() => toast.success('Added Comment!'))
+			.then(() => toast.success('Comment added!'))
 			.catch((err) => toast.error((err as Error).message));
 	}
 	function voteComment(commentId: string, postId: string, vote: number) {
 		const docRef = doc(db, 'comments', postId);
 		updateDoc(docRef, {
 			[`${commentId}.votes`]: increment(vote),
-		}).catch((err) => toast.error((err as Error).message));
+		})
+			.then(() => toast.success('Vote added!'))
+			.catch((err) => toast.error((err as Error).message));
 	}
 	function deleteAllComments(postId: string) {
 		const docRef = doc(db, `comments`, postId);
@@ -231,8 +255,9 @@ export default function AppProvider({
 		googleSignIn,
 		resetPassword,
 		getPosts,
+		getPost,
 		addPost,
-		updatePostContent,
+		updatePost,
 		addComment,
 		deletePost,
 		setPosts,
