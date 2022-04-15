@@ -30,3 +30,12 @@
 	width: inherit;
 	border: 2px solid black;
 }
+
+.form-label span {
+	color: grey;
+	font-size: 0.8rem;
+}
+
+.markdown-preview {
+	width: 50vw;
+}

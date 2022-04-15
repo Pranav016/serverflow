@@ -7,6 +7,8 @@ import { postDataInterface, PostFormProps } from '../../database';
 import { AppContext } from '../../context/AppContext';
 import { useNavigate } from 'react-router-dom';
 import './PostForm.css';
+import TabsBar from '../TabsBar/TabsBar';
+import ReactMarkdown from 'react-markdown';
 
 const PostForm = ({
 	head,
@@ -105,14 +107,37 @@ const PostForm = ({
 						/>
 					</Form.Group>
 					<Form.Group className='mb-3' controlId='formGroupContent'>
-						<Form.Label>Post Content</Form.Label>
-						<Form.Control
-							type='text'
-							placeholder='Enter post content'
-							value={content}
-							onChange={(e) => setContent(e.target.value)}
-							as='textarea'
-							rows={6}
+						<Form.Label>
+							Post Content
+							<span>
+								{' '}
+								(Markdown format is supported:{' '}
+								<a href='https://www.markdownguide.org/basic-syntax/'>
+									Learn More
+								</a>
+								)
+							</span>
+						</Form.Label>
+						<TabsBar
+							defaultKey='Code'
+							items={['Code', 'Preview']}
+							elements={[
+								<Form.Control
+									key={1}
+									type='text'
+									placeholder='Enter post content'
+									value={content}
+									onChange={(e) => setContent(e.target.value)}
+									as='textarea'
+									rows={6}
+								/>,
+								<ReactMarkdown
+									key={1}
+									skipHtml={true}
+									linkTarget={'_blank '}>
+									{content}
+								</ReactMarkdown>,
+							]}
 						/>
 					</Form.Group>
 					<TagsBar
