@@ -43,6 +43,24 @@ jobs:
                   files: coverage/clover.xml
                   fail_ci_if_error: false
                   verbose: true
+            - name: Create and populate .env.production file
+              env:
+                  API_KEY: ${{ secrets.API_KEY }}
+                  AUTH_DOMAIN: ${{ secrets.AUTH_DOMAIN }}
+                  PROJECT_ID: ${{ secrets.PROJECT_ID }}
+                  STORAGE_BUCKET: ${{ secrets.STORAGE_BUCKET }}
+                  MESSAGING_SENDER_ID: ${{ secrets.MESSAGING_SENDER_ID }}
+                  APP_ID: ${{ secrets.APP_ID }}
+              run: |
+                  touch .env.production
+                  echo REACT_APP_API_KEY="$API_KEY" >> .env.production
+                  echo REACT_APP_AUTH_DOMAIN="$AUTH_DOMAIN" >> .env.production
+                  echo REACT_APP_PROJECT_ID="$PROJECT_ID" >> .env.production
+                  echo REACT_APP_STORAGE_BUCKET="$STORAGE_BUCKET" >> .env.production
+                  echo REACT_APP_MESSAGING_SENDER_ID="$MESSAGING_SENDER_ID" >> .env.production
+                  echo REACT_APP_APP_ID="$APP_ID" >> .env.production
+                  ls -a ${{ github.workspace }}
+              shell: bash
             - name: build
               run: yarn build
             - name: Upload build
@@ -50,11 +68,7 @@ jobs:
               with:
                   name: build
                   path: './build'
-            - name: zip assets
-              run: |
-                  zip -r build.zip ./build
-            - name: deploy to production
-              if: ${{ steps.staging.outcome != 'failed' }}
+            - name: deploy to Netlify (production)
               uses: nwtgck/actions-netlify@v1.2.3
               with:
                   publish-dir: './build'
