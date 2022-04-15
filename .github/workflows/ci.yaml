@@ -45,6 +45,9 @@ jobs:
                   verbose: true
             - name: build
               run: yarn build
+            - name: zip assets
+              run: |
+                  zip -r build.zip ./build
             - name: deploy to staging
               id: staging
               run: |
