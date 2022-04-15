@@ -6,7 +6,7 @@ import toast from 'react-hot-toast';
 import '../Login/Login.css';
 
 const ForgotPassword: React.FC = () => {
-	const { resetPassword } = useContext(AppContext);
+	const { user, resetPassword } = useContext(AppContext);
 	const emailRef = useRef<HTMLInputElement>(null);
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
@@ -40,7 +40,7 @@ const ForgotPassword: React.FC = () => {
 				</Button>
 			</Form>
 			<hr />
-			<Link to='/login'>Login</Link>
+			{!user && <Link to='/login'>Login</Link>}
 		</div>
 	);
 };

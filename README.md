@@ -56,7 +56,7 @@ This project follows [Conventional Commits](https://www.conventionalcommits.org/
 -   [ ] Markdown parser/ Integrating CKEditor
 -   [x] Update question/post by author
 -   [ ] Delete comment/solution by author
--   [ ] Reset Password in user dashboard
+-   [x] Reset Password in user dashboard
 
 <hr />
 

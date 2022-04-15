@@ -1,4 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import Post from '../../components/Post/Post';
 import { AppContext } from '../../context/AppContext';
 import { postInterface } from '../../database';
@@ -49,6 +51,11 @@ const Dashboard = () => {
 							{user?.metadata?.creationTime}
 						</span>
 					</div>
+				</div>
+				<div className='resetPassword'>
+					<Link to='/reset-password'>
+						<Button>Reset-Password</Button>
+					</Link>
 				</div>
 			</div>
 			<div className='info-box'>

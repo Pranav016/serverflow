@@ -67,14 +67,7 @@ function App() {
 							</UserLoginRequired>
 						}
 					/>
-					<Route
-						path='forgot-password'
-						element={
-							<UserLoggedIn>
-								<ForgotPassword />
-							</UserLoggedIn>
-						}
-					/>
+					<Route path='reset-password' element={<ForgotPassword />} />
 					<Route
 						path='*'
 						element={<Error text={'Page not found'} />}

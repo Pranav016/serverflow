@@ -68,7 +68,7 @@ const Login: React.FC = () => {
 			<p>OR</p>
 			<GoogleButton onClick={handleGoogleSignIn} />
 			<hr />
-			<Link to='/forgot-password'>Forgot Password</Link>
+			<Link to='/reset-password'>Forgot Password</Link>
 			<Link to='/signup'>New user?</Link>
 		</div>
 	);

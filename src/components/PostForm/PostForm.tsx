@@ -111,6 +111,8 @@ const PostForm = ({
 							placeholder='Enter post content'
 							value={content}
 							onChange={(e) => setContent(e.target.value)}
+							as='textarea'
+							rows={6}
 						/>
 					</Form.Group>
 					<TagsBar
