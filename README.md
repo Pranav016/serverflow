@@ -44,6 +44,7 @@ This project follows [Conventional Commits](https://www.conventionalcommits.org/
 -   Deletion of a post by the author.
 -   Adding solutions under a post/question.
 -   Upvoting or downvoting solutions based on relevance.
+-   Deletion of a comment/solution by the author.
 -   Solution with highest upvotes moves up. (Sorted solutions)
 -   Single click clear filter functionality.
 -   Notification toasts throughout the application.
@@ -53,9 +54,9 @@ This project follows [Conventional Commits](https://www.conventionalcommits.org/
 ## Features currently being worked on:
 
 -   [x] Post filtering by tags and search
--   [ ] Markdown parser/ Integrating CKEditor
+-   [x] Markdown parser with preview
 -   [x] Update question/post by author
--   [ ] Delete comment/solution by author
+-   [ ] Update comment/solution by author
 -   [x] Reset Password in user dashboard
 
 <hr />
