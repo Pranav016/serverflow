@@ -18,7 +18,8 @@
 	align-items: center;
 }
 
-.post-form .form-control {
+.post-form .form-control,
+.form-label {
 	width: 50vw;
 }
 
@@ -37,5 +38,18 @@
 }
 
 .markdown-preview {
+	height: fit-content;
 	width: 50vw;
+	font-size: 2vh;
+}
+
+@media screen and (max-width: 600px) {
+	.post-form .form-control,
+	.form-label {
+		width: 80vw;
+	}
+	.markdown-preview .nav-item {
+		display: flex;
+		justify-content: center;
+	}
 }
