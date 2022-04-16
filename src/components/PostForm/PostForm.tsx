@@ -119,11 +119,11 @@ const PostForm = ({
 							</span>
 						</Form.Label>
 						<TabsBar
-							defaultKey='Code'
+							defaultActive='Code'
 							items={['Code', 'Preview']}
 							elements={[
 								<Form.Control
-									key={1}
+									key={0}
 									type='text'
 									placeholder='Enter post content'
 									value={content}

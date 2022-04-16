@@ -7,6 +7,7 @@ import { Button } from 'react-bootstrap';
 import { Chip } from '@mui/material';
 import { RiDeleteBinFill, RiEditBoxFill } from 'react-icons/ri';
 import { localPostInterface } from '../../database';
+import ReactMarkdown from 'react-markdown';
 
 const Post = ({
 	id,
@@ -47,9 +48,19 @@ const Post = ({
 				<h2>{heading}</h2>
 				<h5>By {authorEmail}</h5>
 				<p>
-					{content?.length > 20 && !renderedOnSinglePage
-						? content.substring(0, 20) + '...'
-						: content}
+					{!renderedOnSinglePage ? (
+						<ReactMarkdown skipHtml={true} linkTarget={'_blank '}>
+							{content.substring(0, 20) +
+								(content?.length > 20 ? '...' : '')}
+						</ReactMarkdown>
+					) : (
+						<ReactMarkdown
+							className='markdown-content'
+							skipHtml={true}
+							linkTarget={'_blank '}>
+							{content}
+						</ReactMarkdown>
+					)}
 				</p>
 				<div className='post-tags'>
 					{tags?.map((tag, index) => (

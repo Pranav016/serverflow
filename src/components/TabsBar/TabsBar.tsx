@@ -3,17 +3,17 @@ import React from 'react';
 import { Tab, Tabs } from 'react-bootstrap';
 
 const TabsBar = ({
-	defaultKey,
+	defaultActive,
 	items,
 	elements,
 }: {
-	defaultKey: string;
+	defaultActive: string;
 	items: string[];
 	elements: ReactJSXElement[];
 }) => {
 	return (
 		<Tabs
-			defaultActiveKey={defaultKey}
+			defaultActiveKey={defaultActive}
 			id='uncontrolled-tab'
 			className='markdown-preview'>
 			{items.map((item, index) => (
