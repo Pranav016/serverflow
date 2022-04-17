@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { RiDeleteBinFill } from 'react-icons/ri';
+import { RiDeleteBinFill, RiEditBoxFill } from 'react-icons/ri';
 import { TiArrowSortedDown, TiArrowSortedUp } from 'react-icons/ti';
 import { useNavigate } from 'react-router-dom';
 import { AppContext } from '../../context/AppContext';
@@ -18,8 +18,12 @@ const SingleComment = ({
 	content: string;
 	votes: number;
 }) => {
-	const { user, voteComment, sweetAlertCommentWarning } =
-		useContext(AppContext);
+	const {
+		user,
+		voteComment,
+		sweetAlertCommentWarning,
+		sweetAlertUpdateComment,
+	} = useContext(AppContext);
 	const navigate = useNavigate();
 	return (
 		<div className='comment-card'>
@@ -49,14 +53,21 @@ const SingleComment = ({
 				<p>{content}</p>
 			</div>
 			{user?.email === authorEmail && (
-				<RiDeleteBinFill
-					onClick={() =>
-						sweetAlertCommentWarning({
-							postId,
-							commentId,
-						})
-					}
-				/>
+				<>
+					<RiEditBoxFill
+						onClick={() =>
+							sweetAlertUpdateComment(postId, commentId)
+						}
+					/>
+					<RiDeleteBinFill
+						onClick={() =>
+							sweetAlertCommentWarning({
+								postId,
+								commentId,
+							})
+						}
+					/>
+				</>
 			)}
 			<hr />
 		</div>
