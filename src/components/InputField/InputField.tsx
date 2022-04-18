@@ -20,6 +20,8 @@ const InputField = ({
 					variant='standard'
 					onChange={(e) => setInputText(e.target.value)}
 					value={inputText}
+					multiline
+					rows={4}
 				/>
 			</div>
 			<div className='add'>
