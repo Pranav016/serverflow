@@ -178,6 +178,32 @@ export default function AppProvider({
 			toast.error((err as Error).message)
 		);
 	}
+	function updateComment(
+		postId: string,
+		commentId: string,
+		updatedContent: string
+	) {
+		const docRef = doc(db, `comments`, postId);
+		setDoc(
+			docRef,
+			{ [commentId]: { content: updatedContent } },
+			{ merge: true }
+		)
+			.then(() => toast.success('Comment successfully updated!'))
+			.catch((err) => toast.error(err.message));
+	}
+
+	async function getComments(postId: string) {
+		const docRef = doc(db, `comments/${postId}`);
+		let d;
+		try {
+			d = await getDoc(docRef);
+		} catch (err) {
+			toast.error((err as Error).message);
+		}
+		const ans = d?.data() as Record<string, commentInterface>;
+		return ans;
+	}
 
 	function sweetAlertPostWarning({
 		postId,
@@ -245,6 +271,9 @@ export default function AppProvider({
 			})
 			.catch((err) => toast.error(err.message));
 	}
+	async function sweetAlertUpdateComment(postId: string, commentId: string) {
+		const data = await getComments(postId);
+	}
 
 	const value: contextInterface = {
 		user,
@@ -257,15 +286,18 @@ export default function AppProvider({
 		getPosts,
 		getPost,
 		addPost,
-		updatePost,
 		addComment,
+		updatePost,
+		updateComment,
 		deletePost,
 		setPosts,
 		votePost,
 		voteComment,
+		getComments,
 		deleteSpecificComment,
 		sweetAlertPostWarning,
 		sweetAlertCommentWarning,
+		sweetAlertUpdateComment,
 	};
 
 	return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

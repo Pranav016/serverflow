@@ -75,6 +75,12 @@ interface contextInterface {
 	votePost: (postId: string, vote: number) => void;
 	voteComment: (commentId: string, postId: string, vote: number) => void;
 	deleteSpecificComment: (commentId: string, postId: string) => void;
+	updateComment: (
+		postId: string,
+		commentId: string,
+		updatedContent: string
+	) => void;
+	getComments: (postId: string) => Promise<Record<string, commentInterface>>;
 	sweetAlertPostWarning: ({
 		postId,
 		pathname,
@@ -99,6 +105,7 @@ interface contextInterface {
 		confirmButtonText,
 		msg,
 	}: sweetAlertCommentWarningInterface) => void;
+	sweetAlertUpdateComment: (postId: string, commentId: string) => void;
 }
 
 interface HeroPropInterface {
