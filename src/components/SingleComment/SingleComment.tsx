@@ -4,6 +4,7 @@ import { TiArrowSortedDown, TiArrowSortedUp } from 'react-icons/ti';
 import { useNavigate } from 'react-router-dom';
 import { AppContext } from '../../context/AppContext';
 import './SingleComment.css';
+import ReactMarkdown from 'react-markdown';
 
 const SingleComment = ({
 	commentId,
@@ -50,7 +51,9 @@ const SingleComment = ({
 			</div>
 			<div className='comment-info'>
 				<h5>By {authorEmail}</h5>
-				<p>{content}</p>
+				<ReactMarkdown skipHtml={true} linkTarget={'_blank '}>
+					{content}
+				</ReactMarkdown>
 			</div>
 			{user?.email === authorEmail && (
 				<>
