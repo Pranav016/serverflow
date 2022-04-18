@@ -273,6 +273,23 @@ export default function AppProvider({
 	}
 	async function sweetAlertUpdateComment(postId: string, commentId: string) {
 		const data = await getComments(postId);
+		const requiredContent = data[commentId].content;
+
+		const { value: updatedContent } = await Swal.fire({
+			input: 'textarea',
+			inputLabel: 'Update Comment',
+			inputPlaceholder: 'Update Comment',
+			inputValue: requiredContent,
+			inputAttributes: {
+				'aria-label': 'Update Comment box',
+			},
+			confirmButtonText: 'Update',
+			showCancelButton: true,
+		});
+
+		if (updatedContent) {
+			updateComment(postId, commentId, updatedContent);
+		}
 	}
 
 	const value: contextInterface = {
