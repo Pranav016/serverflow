@@ -48,6 +48,7 @@ This project follows [Conventional Commits](https://www.conventionalcommits.org/
 -   Solution with highest upvotes moves up. (Sorted solutions)
 -   Single click clear filter functionality.
 -   Notification toasts throughout the application.
+-   Update comment/solution by the author.
 
 <hr />
 
@@ -56,7 +57,7 @@ This project follows [Conventional Commits](https://www.conventionalcommits.org/
 -   [x] Post filtering by tags and search
 -   [x] Markdown parser with preview
 -   [x] Update question/post by author
--   [ ] Update comment/solution by author
+-   [x] Update comment/solution by author
 -   [x] Reset Password in user dashboard
 
 <hr />
