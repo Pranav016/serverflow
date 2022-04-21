@@ -46,7 +46,7 @@ This project follows [Conventional Commits](https://www.conventionalcommits.org/
 -   Upvoting or downvoting solutions based on relevance.
 -   Deletion of a comment/solution by the author.
 -   Solution with highest upvotes moves up. (Sorted solutions)
--   Single click clear filter functionality.
+-   Single click `clear filter` functionality.
 -   Notification toasts throughout the application.
 -   Update comment/solution by the author.
 
@@ -59,6 +59,7 @@ This project follows [Conventional Commits](https://www.conventionalcommits.org/
 -   [x] Update question/post by author
 -   [x] Update comment/solution by author
 -   [x] Reset Password in user dashboard
+-   [ ] Improve responsivness of the application.
 
 <hr />
 
