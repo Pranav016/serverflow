@@ -83,7 +83,7 @@ const Post = ({
 			<div className='post-footer'>
 				<div>
 					{!renderedOnSinglePage && (
-						<Link to={`${id}`}>
+						<Link to={`/questions/${id}`}>
 							<Button>Read More</Button>
 						</Link>
 					)}
