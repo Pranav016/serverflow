@@ -131,6 +131,7 @@ const PostForm = ({
 									as='textarea'
 									rows={6}
 								/>,
+
 								<ReactMarkdown
 									key={1}
 									skipHtml={true}

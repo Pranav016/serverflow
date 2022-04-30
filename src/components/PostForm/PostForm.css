@@ -1,5 +1,5 @@
 .post-form {
-	height: 85vh;
+	height: fit-content;
 	width: 100vw;
 	display: flex;
 	flex-direction: column;
@@ -48,8 +48,10 @@
 	.form-label {
 		width: 80vw;
 	}
-	.markdown-preview .nav-item {
-		display: flex;
-		justify-content: center;
+}
+
+@media screen and (max-width: 300px) {
+	.markdown-preview .nav-items {
+		font-size: 5px;
 	}
 }
