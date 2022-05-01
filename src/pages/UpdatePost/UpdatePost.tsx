@@ -2,6 +2,7 @@ import { DocumentData } from 'firebase/firestore';
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import PostForm from '../../components/PostForm/PostForm';
+import LoadingSpinner from '../../components/Spinner/LoadingSpinner';
 import { AppContext } from '../../context/AppContext';
 
 const UpdatePost = () => {
@@ -26,7 +27,11 @@ const UpdatePost = () => {
 		);
 	}
 
-	return <div className='update-post'>{updationForm()}</div>;
+	return postData ? (
+		<div className='update-post'>{updationForm()}</div>
+	) : (
+		<LoadingSpinner />
+	);
 };
 
 export default UpdatePost;

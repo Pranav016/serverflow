@@ -16,6 +16,7 @@ import {
 	onSnapshot,
 	DocumentSnapshot,
 } from 'firebase/firestore';
+import LoadingSpinner from '../../components/Spinner/LoadingSpinner';
 
 const SinglePost = () => {
 	const { user, posts, addComment } = useContext(AppContext);
@@ -79,46 +80,49 @@ const SinglePost = () => {
 		addComment(filteredPost[0]?.id, newComment);
 		setSolution('');
 	};
-
-	return (
-		<div className='singlePostPage'>
-			<div className='nested-navbar'>
-				<Button onClick={handleBack}>Go Back</Button>
+	if (filteredPost && comments) {
+		return (
+			<div className='singlePostPage'>
+				<div className='nested-navbar'>
+					<Button onClick={handleBack}>Go Back</Button>
+				</div>
+				<div className='single-post'>
+					<Post
+						id={filteredPost[0]?.id}
+						authorEmail={filteredPost[0]?.data?.authorEmail}
+						heading={filteredPost[0]?.data?.heading}
+						content={filteredPost[0]?.data?.content}
+						tags={filteredPost[0]?.data?.tags}
+						votes={filteredPost[0]?.data?.votes}></Post>
+				</div>
+				<div className='addPost-input'>
+					<InputField
+						inputText={solution}
+						setInputText={setSolution}
+						label='Add Solution'
+						handleClick={handleClick}
+						buttonText={'Add'}
+					/>
+				</div>
+				<div className='comments-console'>
+					{comments?.length
+						? comments?.map((comment: commentInterface) => (
+								<SingleComment
+									key={comment.id}
+									postId={postId as string}
+									commentId={comment.id}
+									authorEmail={comment.authorEmail}
+									content={comment.content}
+									votes={comment.votes}
+								/>
+						  ))
+						: 'No solutions found!'}
+				</div>
 			</div>
-			<div className='single-post'>
-				<Post
-					id={filteredPost[0]?.id}
-					authorEmail={filteredPost[0]?.data?.authorEmail}
-					heading={filteredPost[0]?.data?.heading}
-					content={filteredPost[0]?.data?.content}
-					tags={filteredPost[0]?.data?.tags}
-					votes={filteredPost[0]?.data?.votes}></Post>
-			</div>
-			<div className='addPost-input'>
-				<InputField
-					inputText={solution}
-					setInputText={setSolution}
-					label='Add Solution'
-					handleClick={handleClick}
-					buttonText={'Add'}
-				/>
-			</div>
-			<div className='comments-console'>
-				{comments?.length
-					? comments?.map((comment: commentInterface) => (
-							<SingleComment
-								key={comment.id}
-								postId={postId as string}
-								commentId={comment.id}
-								authorEmail={comment.authorEmail}
-								content={comment.content}
-								votes={comment.votes}
-							/>
-					  ))
-					: 'No solutions found!'}
-			</div>
-		</div>
-	);
+		);
+	} else {
+		return <LoadingSpinner />;
+	}
 };
 
 export default SinglePost;
