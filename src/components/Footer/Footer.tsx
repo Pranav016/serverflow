@@ -1,5 +1,10 @@
 import React from 'react';
 import './Footer.css';
+import { MdWork, MdPrivacyTip, MdAttachEmail } from 'react-icons/md';
+import { HiDocumentText } from 'react-icons/hi';
+import { TiContacts } from 'react-icons/ti';
+import { FaTwitter } from 'react-icons/fa';
+import { AiFillGithub, AiFillInstagram } from 'react-icons/ai';
 
 const Footer = () => {
 	return (
@@ -17,19 +22,43 @@ const Footer = () => {
 			<div className='footer-div2'>
 				<h4>QUICK LINKS</h4>
 				<ul>
-					<li>Careers</li>
-					<li>Privacy Policy</li>
-					<li>Terms and Conditions</li>
-					<li>Contact Us</li>
+					<li>
+						<MdWork />
+						&nbsp;Careers
+					</li>
+					<li>
+						<MdPrivacyTip />
+						&nbsp;Privacy Policy
+					</li>
+					<li>
+						<HiDocumentText />
+						&nbsp;Terms and Conditions
+					</li>
+					<li>
+						<TiContacts />
+						&nbsp;Contact Us
+					</li>
 				</ul>
 			</div>
 			<div className='footer-div2'>
 				<h4>SOCIALS</h4>
 				<ul>
-					<li>Email</li>
-					<li>Twitter</li>
-					<li>GitHub</li>
-					<li>Instagram</li>
+					<li>
+						<MdAttachEmail />
+						&nbsp;Email
+					</li>
+					<li>
+						<FaTwitter />
+						&nbsp;Twitter
+					</li>
+					<li>
+						<AiFillGithub />
+						&nbsp;GitHub
+					</li>
+					<li>
+						<AiFillInstagram />
+						&nbsp;Instagram
+					</li>
 				</ul>
 			</div>
 		</div>
