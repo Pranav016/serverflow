@@ -3,14 +3,21 @@
 	height: fit-content;
 	width: 50vw;
 	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	align-items: center;
+	flex-direction: column;
 	word-wrap: break-word;
 }
 
-.comment-card .vote {
-	height: 17vh;
+.comment-header {
+	height: fit-content;
+	width: inherit;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.comment-header .vote {
+	min-height: 17vh;
 	width: 30%;
 	display: flex;
 	flex-direction: column;
@@ -18,14 +25,22 @@
 	align-items: flex-start;
 }
 
-.comment-card .vote svg {
+.comment-header .comment-info {
+	width: 70%;
+	display: flex;
+	justify-content: center;
+	word-break: break-all;
+}
+
+.comment-header .vote svg {
 	height: 2vh;
 	width: 2vh;
 }
 
-.comment-card .comment-info {
-	width: 60%;
-	height: fit-content;
+.comment-card .comment-footer {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
 }
 
 @media screen and (max-width: 900px) {

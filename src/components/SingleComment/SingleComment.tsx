@@ -28,51 +28,57 @@ const SingleComment = ({
 	const navigate = useNavigate();
 	return (
 		<div className='comment-card'>
-			<div className='vote'>
-				<TiArrowSortedUp
-					onClick={() => {
-						if (user) {
-							voteComment(commentId, postId, +1);
-						} else {
-							navigate('/login');
-						}
-					}}
-				/>
-				<h3>{votes}</h3>
-				<TiArrowSortedDown
-					onClick={() => {
-						if (user) {
-							voteComment(commentId, postId, -1);
-						} else {
-							navigate('/login');
-						}
-					}}
-				/>
+			<div className='comment-header'>
+				<div className='vote'>
+					<TiArrowSortedUp
+						onClick={() => {
+							if (user) {
+								voteComment(commentId, postId, +1);
+							} else {
+								navigate('/login');
+							}
+						}}
+					/>
+					<h3>{votes}</h3>
+					<TiArrowSortedDown
+						onClick={() => {
+							if (user) {
+								voteComment(commentId, postId, -1);
+							} else {
+								navigate('/login');
+							}
+						}}
+					/>
+				</div>
+				<div className='comment-info'>
+					<h5>By {authorEmail}</h5>
+				</div>
 			</div>
-			<div className='comment-info'>
-				<h5>By {authorEmail}</h5>
+			<div className='comment-content'>
 				<ReactMarkdown skipHtml={true} linkTarget={'_blank '}>
 					{content}
 				</ReactMarkdown>
 			</div>
-			{user?.email === authorEmail && (
-				<>
-					<RiEditBoxFill
-						onClick={() =>
-							sweetAlertUpdateComment(postId, commentId)
-						}
-					/>
-					<RiDeleteBinFill
-						onClick={() =>
-							sweetAlertCommentWarning({
-								postId,
-								commentId,
-							})
-						}
-					/>
-				</>
-			)}
-			<hr />
+			<div className='comment-footer'>
+				{user?.email === authorEmail && (
+					<>
+						<RiEditBoxFill
+							onClick={() =>
+								sweetAlertUpdateComment(postId, commentId)
+							}
+						/>
+						<RiDeleteBinFill
+							onClick={() =>
+								sweetAlertCommentWarning({
+									postId,
+									commentId,
+								})
+							}
+						/>
+					</>
+				)}
+				<hr />
+			</div>
 		</div>
 	);
 };
