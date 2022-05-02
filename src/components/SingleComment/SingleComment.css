@@ -37,6 +37,12 @@
 	width: 2vh;
 }
 
+.comment-content {
+	padding: 0.5vh;
+	border: 1px solid grey;
+	border-radius: 15px;
+}
+
 .comment-card .comment-footer {
 	display: flex;
 	flex-direction: row;
