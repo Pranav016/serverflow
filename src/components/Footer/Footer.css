@@ -10,6 +10,8 @@
 
 ul {
 	list-style-type: none;
+	margin: 0;
+	padding: 0;
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
@@ -30,9 +32,9 @@ ul {
 	.footer-div1,
 	.footer-div2 {
 		width: 100%;
+		margin-top: 1vh;
 		display: flex;
 		flex-direction: column;
-		align-items: center;
-		text-align: center;
+		align-items: flex-start;
 	}
 }
