@@ -24,10 +24,6 @@
 	width: 50vw;
 }
 
-.post-form button {
-	margin-top: 3vh;
-}
-
 .post-form hr {
 	width: inherit;
 	border: 2px solid black;
@@ -38,10 +34,12 @@
 	font-size: 0.8rem;
 }
 
-.markdown-preview {
-	height: fit-content;
-	width: 50vw;
-	font-size: 2vh;
+.nav {
+	margin: 0;
+	padding: 0;
+	font-size: 1.5vh;
+	display: flex;
+	flex-direction: row;
 }
 
 @media screen and (max-width: 600px) {
