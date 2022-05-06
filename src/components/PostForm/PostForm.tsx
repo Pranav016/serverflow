@@ -106,7 +106,9 @@ const PostForm = ({
 							onChange={(e) => setHeading(e.target.value)}
 						/>
 					</Form.Group>
-					<Form.Group className='mb-3' controlId='formGroupContent'>
+					<Form.Group
+						className='mb-3 preview-content'
+						controlId='formGroupContent'>
 						<Form.Label>
 							Post Content
 							<span>

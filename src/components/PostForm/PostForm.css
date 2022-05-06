@@ -20,8 +20,9 @@
 }
 
 .post-form .form-control,
-.form-label {
-	width: 50vw;
+.form-label,
+.preview-content {
+	width: 60vw;
 }
 
 .post-form hr {
@@ -42,9 +43,14 @@
 	flex-direction: row;
 }
 
+.preview-content {
+	word-wrap: break-word;
+}
+
 @media screen and (max-width: 600px) {
 	.post-form .form-control,
-	.form-label {
+	.form-label,
+	.preview-content {
 		width: 80vw;
 	}
 }
