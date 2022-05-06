@@ -61,7 +61,7 @@ const Dashboard = () => {
 			<div className='info-box'>
 				<h1>My Posts</h1>
 				<div className='user-posts'>
-					{filteredPosts ? (
+					{filteredPosts.length ? (
 						filteredPosts?.map((post) => (
 							<Post
 								key={post?.id}
