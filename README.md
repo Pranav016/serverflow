@@ -67,6 +67,7 @@ This project follows [Conventional Commits](https://www.conventionalcommits.org/
 -   Single click `clear filter` functionality.
 -   Notification toasts throughout the application.
 -   Update comment/solution by the author.
+-   Parsing support for markdown text in posts and comments.
 
 <hr />
 
